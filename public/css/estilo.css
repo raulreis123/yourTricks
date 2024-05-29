@@ -23,7 +23,7 @@ body {
 
 .header {
   height: var(--tamanho-header);
-  border-bottom: 2px solid #32b9cd;
+  border-bottom: 2px solid #eb4141;
 }
 
 .header .container {
@@ -34,7 +34,7 @@ body {
 
 .header a {
   text-decoration: none;
-  color: #e3b062;
+  color: white;
 }
 
 .agora {
@@ -51,9 +51,9 @@ body {
 }
 
 .titulo {
-  color: #32b9cd;
+  color: #e63e3e;
   width: fit-content;
-  font-weight: 500;
+  font-weight: 800;
 }
 
 .header h1 {
@@ -70,7 +70,7 @@ body {
 }
 
 .banner .container {
-  justify-content: center;
+  justify-content: left;
   align-items: center;
   height: 100%;
 }
@@ -121,7 +121,7 @@ body {
 /* FOOTER */
 
 .footer {
-  background-color: #32b9cd;
+  background-color: #e63e3e;
   height: 150px;
   color: #fff;
   display: flex;
