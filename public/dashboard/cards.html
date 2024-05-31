@@ -20,7 +20,7 @@
         rel="stylesheet">
 </head>
 
-<body onload="validarSessao(), exibirAquarios(),  atualizacaoPeriodica()">
+<body>
 
     <div class="janela">
 
@@ -32,19 +32,19 @@
                 <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
             </div>
 
-            <div class="btn-nav">
-                <h3>Aquários</h3>
+            <div class="btn-nav" onclick="exibUser()">
+                <h3>Seus dados</h3>
             </div>
 
             <div class="btn-nav-white">
                 <a href="./dashboard.html">
-                    <h3>Gráficos</h3>
+                    <h3>Histórico</h3>
                 </a>
             </div>
 
             <div class="btn-nav-white">
                 <a href="./mural.html">
-                    <h3>Mural de Avisos</h3>
+                    <h3>Suas manobras</h3>
                 </a>
             </div>
 
@@ -89,6 +89,26 @@
 
             </div>
 
+            <div class="card card-login cardUser">
+                <h2>Seu usuário!</h2>
+                <div class="formulario">
+                    <div class="campo">
+                        <span>Nome:</span>
+                        <input id="nome_input" type="text" disabled>
+                    </div>
+                    <div class="campo">
+                        <span>E-mail:</span>
+                        <input id="email_input" type="text" disabled>
+                    </div>
+                </div>
+
+                <div id="div_aguardar" class="loading-div">
+                    <img src="./assets/circle-loading.gif" id="loading-gif">
+                </div>
+
+                <div id="div_erros_login"></div>
+            </div>
+
         </div>
 
     </div>
@@ -96,25 +116,23 @@
 </body>
 
 <script>
+    document.addEventListener("DOMContentLoaded", ()=>{
+        var cardUser = document.querySelector('.cardUser');
+        cardUser.style.display = 'none';
+    });
 
-    function exibirAquarios() {
-        JSON.parse(sessionStorage.AQUARIOS).forEach(item => {
-            document.getElementById("cardAquarios").innerHTML += `
-                    <div class="card-aquario">
-                        <div class="title-aquario">
-                            <h1>${item.descricao}</h1>
-                        </div>
-                        <div class="desc-aquario">
-                        <div class="temperatura">
-                            <p id="temp_aquario_${item.id}">-°C</p>
-                        </div>
-                        <div class="cor-alerta" id="card_${item.id}"></div>
-                    </div>
-                    </div>
-                    `
-        });
+    function exibUser() {
+        var cardUser = document.querySelector('.cardUser');
+
+        if(cardUser.style.display == 'flex'){
+            cardUser.style.display = 'none';
+        } else{
+            cardUser.style.display = 'flex'
+        }
+
+        nome_input.value = sessionStorage.NOME_USUARIO;
+        email_input.value = sessionStorage.EMAIL_USUARIO;
     }
-
 </script>
 
 </html>

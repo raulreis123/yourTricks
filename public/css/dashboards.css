@@ -426,3 +426,11 @@ canvas {
   margin-bottom: 100px;
   cursor: pointer;
 }
+
+.cardUser{
+  /* display: none; */
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translateX(-50%);
+}

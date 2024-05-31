@@ -16,29 +16,28 @@ function autenticar(req, res) {
                 function (resultadoAutenticar) {
                     console.log(`\nResultados encontrados: ${resultadoAutenticar.length}`);
                     console.log(`Resultados: ${JSON.stringify(resultadoAutenticar)}`); // transforma JSON em String
+                    // let resultadoParse = resultadoAutenticar[0];
+                    console.log(`Formato de data: ${Object.keys(resultadoAutenticar[0])}`)
 
                     if (resultadoAutenticar.length == 1) {
+                        console.log(`Nome de usuario: ${Object.keys(resultadoAutenticar)}`)
                         console.log(resultadoAutenticar);
-
-                        // aquarioModel.buscarAquariosPorEmpresa(resultadoAutenticar[0].empresaId)
-                        //     .then((resultadoAquarios) => {
-                        //         if (resultadoAquarios.length > 0) {
-                        //             res.json({
-                        //                 id: resultadoAutenticar[0].id,
-                        //                 email: resultadoAutenticar[0].email,
-                        //                 nome: resultadoAutenticar[0].nome,
-                        //                 senha: resultadoAutenticar[0].senha,
-                        //                 aquarios: resultadoAquarios
-                        //             });
-                        //         } else {
-                        //             res.status(204).json({ aquarios: [] });
-                        //         }
-                        //     })
+                        res.status(200).json(
+                            {
+                                ok: true,
+                                data: { 
+                                    id: resultadoAutenticar[0].id,
+                                    nome: resultadoAutenticar[0].nome,
+                                    email: resultadoAutenticar[0].email
+                                }
+                            }
+                        );
+                        
                     } else if (resultadoAutenticar.length == 0) {
                         res.status(403).send("Email e/ou senha inválido(s)");
                     } else {
                         res.status(403).send("Mais de um usuário com o mesmo login e senha!");
-                    } res.status(200).json({ok: true});
+                    } 
                 }
             ).catch(
                 function (erro) {

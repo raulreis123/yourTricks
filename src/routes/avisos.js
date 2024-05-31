@@ -1,30 +1,30 @@
 var express = require("express");
 var router = express.Router();
 
-var avisoController = require("../controllers/avisoController");
+var anotacoesController = require("../controllers/avisoController");
 
 router.get("/listar", function (req, res) {
-    avisoController.listar(req, res);
+    anotacoesController.listar(req, res);
 });
 
 router.get("/listar/:idUsuario", function (req, res) {
-    avisoController.listarPorUsuario(req, res);
+    anotacoesController.listarPorUsuario(req, res);
 });
 
 router.get("/pesquisar/:descricao", function (req, res) {
-    avisoController.pesquisarDescricao(req, res);
+    anotacoesController.pesquisarDescricao(req, res);
 });
 
 router.post("/publicar/:idUsuario", function (req, res) {
-    avisoController.publicar(req, res);
+    anotacoesController.publicar(req, res);
 });
 
 router.put("/editar/:idAviso", function (req, res) {
-    avisoController.editar(req, res);
+    anotacoesController.editar(req, res);
 });
 
 router.delete("/deletar/:idAviso", function (req, res) {
-    avisoController.deletar(req, res);
+    anotacoesController.deletar(req, res);
 });
 
 module.exports = router;
