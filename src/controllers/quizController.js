@@ -41,6 +41,7 @@ function cadastrar(req, res) {
     var idUsuario = req.body.idUserServer;
     var pontuacao = req.body.pontuacaoServer;
     // var senha = req.body.senhaServer;
+    console.log(`\n\nDados do Servidor: id: ${idUsuario}, pontuacao: ${pontuacao}\n\n`)
 
     // Faça as validações dos valores
     if (idUsuario == undefined) {
@@ -53,7 +54,7 @@ function cadastrar(req, res) {
         quizModel.cadastrar(idUsuario, pontuacao)
             .then(
                 function (resultado) {
-                    res.json(resultado);
+                    res.status(200).json(resultado);
                 }
             ).catch(
                 function (erro) {
