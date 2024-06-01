@@ -1,17 +1,14 @@
 var quizModel = require("../models/quizModel");
 // var aquarioModel = require("../models/aquarioModel");
 
-function autenticar(req, res) {
-    var email = req.body.emailServer;
-    var senha = req.body.senhaServer;
+function obterDados(req, res) {
+    var idUser = req.params.idUsuario;
 
-    if (email == undefined) {
+    if (idUser == undefined) {
         res.status(400).send("Seu email está undefined!");
-    } else if (senha == undefined) {
-        res.status(400).send("Sua senha está indefinida!");
     } else {
 
-        quizModel.autenticar(email, senha)
+        quizModel.obterDados(idUser)
             .then(
                 function (resultadoAutenticar) {
                     console.log(`\nResultados encontrados: ${resultadoAutenticar.length}`);
@@ -23,7 +20,11 @@ function autenticar(req, res) {
                         res.status(403).send("Email e/ou senha inválido(s)");
                     } else {
                         res.status(403).send("Mais de um usuário com o mesmo login e senha!");
-                    } res.status(200).json({ok: true});
+                    } res.status(200).json(
+                        {
+                            ok: true,
+                            data: resultadoAutenticar
+                        });
                 }
             ).catch(
                 function (erro) {
@@ -70,6 +71,6 @@ function cadastrar(req, res) {
 }
 
 module.exports = {
-    autenticar,
+    obterDados,
     cadastrar
 }

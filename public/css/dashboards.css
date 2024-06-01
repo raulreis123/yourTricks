@@ -488,6 +488,9 @@ canvas {
 }
 
 .sendQuiz{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
   background-color: white;
   height: 200px;
 }
@@ -495,8 +498,19 @@ canvas {
 .sendQuiz button{
   height: 50px;
   width: 130px;
-  font-size: 15px;
+  font-size: 17px;
   margin-top: 50px;
   margin-bottom: 50px;
   cursor: pointer;
+  background-color: #32b9cd;
+  border-radius: 10px;
+  border: 0;
+  color: white;
+  font-weight: 700;
+}
+
+#placar{
+  color: #e63e3e;
+  font-size: 25px;
+  font-weight: 600;
 }
