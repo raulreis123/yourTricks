@@ -514,3 +514,11 @@ canvas {
   font-size: 25px;
   font-weight: 600;
 }
+
+#titleDash{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  color: white;
+  font-size: 18px;
+}

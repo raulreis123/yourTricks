@@ -38,6 +38,7 @@ insert into quiz values(default, 1, 15, default);
 drop table usuario;
 drop table quiz; 
 
+describe quiz;
 select * from usuario;
 select * from quiz;
 select * from usuario join quiz

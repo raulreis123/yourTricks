@@ -8,7 +8,7 @@ router.post("/cadastrar", function (req, res) {
     quizController.cadastrar(req, res);
 })
 
-router.post("/obterDados:idUsuario", function (req, res) {
+router.post("/obterDados", function (req, res) {
     quizController.obterDados(req, res);
 });
 

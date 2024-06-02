@@ -2,10 +2,10 @@ var quizModel = require("../models/quizModel");
 // var aquarioModel = require("../models/aquarioModel");
 
 function obterDados(req, res) {
-    var idUser = req.params.idUsuario;
+    var idUser = req.body.idUsuario;
 
     if (idUser == undefined) {
-        res.status(400).send("Seu email está undefined!");
+        res.status(400).send("Seu usuário está undefined!");
     } else {
 
         quizModel.obterDados(idUser)
@@ -14,17 +14,15 @@ function obterDados(req, res) {
                     console.log(`\nResultados encontrados: ${resultadoAutenticar.length}`);
                     console.log(`Resultados: ${JSON.stringify(resultadoAutenticar)}`); // transforma JSON em String
 
-                    if (resultadoAutenticar.length == 1) {
-                        console.log(resultadoAutenticar);
-                    } else if (resultadoAutenticar.length == 0) {
-                        res.status(403).send("Email e/ou senha inválido(s)");
-                    } else {
-                        res.status(403).send("Mais de um usuário com o mesmo login e senha!");
-                    } res.status(200).json(
-                        {
-                            ok: true,
-                            data: resultadoAutenticar
-                        });
+                    if (resultadoAutenticar.length == 0) {
+                        res.status(204).json({msg: "Você ainda não realizou uma tentativa no quiz!"});
+                    } else{
+                        res.status(200).json(
+                            {
+                                ok: true,
+                                data: resultadoAutenticar
+                            });
+                    }
                 }
             ).catch(
                 function (erro) {
