@@ -7,9 +7,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YourTricks | Histórico</title>
-    
+
     <link rel="stylesheet" href="./../css/dashboards.css">
     <link rel="stylesheet" href="./../css/estilo.css" />
+    <link rel="icon" href="../assets/icon/logoSite.png">
     <script src="../js/sessao.js"></script>
     <script src="./../js/alerta.js"></script>
 
@@ -56,6 +57,12 @@
                 </a>
             </div>
 
+            <div class="btn-nav-white">
+                <a href="./edicao-aviso.html">
+                    <h3>Sobre skate</h3>
+                </a>
+            </div>
+
             <div class="btn-logout" onclick="limparSessao()">
                 <h3>Sair</h3>
             </div>
@@ -74,7 +81,7 @@
                     <canvas id="myChartCanvas1" width="400" height="200"></canvas>
                     <div class="label-captura">
                         <p id="avisoCaptura1" style="color: aliceblue;"></p>
-                    </div> 
+                    </div>
                 </div>
             </div>
         </div>
@@ -91,7 +98,7 @@
                 clearTimeout(proximaAtualizacao);
             }
 
-            fetch(`/quiz/obterDados`, { 
+            fetch(`/quiz/obterDados`, {
                 method: "post",
                 headers: {
                     "Content-Type": "application/json"
@@ -106,27 +113,30 @@
                         console.log(`Dados recebidos: ${JSON.stringify(resposta.data)}`);
                         plotarGrafico(resposta.data);
                     });
-                } else if(response.status == 204){
+                } else if (response.status == 204) {
                     alert("Você ainda não realizou uma tentativa no quiz!")
-                    setTimeout(()=>{window.location.href = './quiz.html'}, 2000);
+                    setTimeout(() => { window.location.href = './quiz.html' }, 2000);
                 } else {
                     console.error('Nenhum dado encontrado ou erro na API');
                 }
             })
-            .catch(function (error) {
-                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-            });
+                .catch(function (error) {
+                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                });
         }
 
         function plotarGrafico(dadosRecebidos) {
             console.log('Iniciando plotagem do gráfico...');
 
-            // Selecionar os últimos 10 registros
-            const ultimosDezRegistros = dadosRecebidos.slice(-10);
+            // Verificando se há menos de 10 registros
+            if (dadosRecebidos.length < 10) {
+                alert("Você tem menos de 10 tentativas. Exibindo todas as tentativas disponíveis.");
+            }
 
             // Criando estrutura para plotar gráfico - labels e dados
-            const labels = ultimosDezRegistros.map((registro, index) => `Tentativa:${dadosRecebidos.length - 10 + index + 1}`);
-            const dataPoints = ultimosDezRegistros.map(registro => registro.pontuation);
+            // Rótulo que sera inserido no gráfico, no caso indíce da tentativa + 1;
+            const labels = dadosRecebidos.map((registro, index) => `Tentativa:${index + 1}`);
+            const dataPoints = dadosRecebidos.map(registro => registro.pontuation);
 
             console.log('----------------------------------------------');
             console.log('Dados recebidos:');
@@ -166,7 +176,7 @@
                     plugins: {
                         tooltip: {
                             callbacks: {
-                                label: function(context) {
+                                label: function (context) {
                                     return `Tentativa ${context.dataIndex + 1}: Pontuação: ${context.parsed.y}`;
                                 }
                             }

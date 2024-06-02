@@ -6,11 +6,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AquaTech | Página Inicial</title>
+    <title>YourTricks | Página Inicial</title>
 
     
     <link rel="stylesheet" href="./../css/dashboards.css">
     <link rel="stylesheet" href="./../css/estilo.css" />
+    <link rel="icon" href="../assets/icon/logoSite.png">
     <script src="../js/sessao.js"></script>
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -19,7 +20,7 @@
         rel="stylesheet">
 </head>
 
-<body onload="validarSessao(), listarInfosDeUm()" style="background-color: #161618;">
+<body style="background-color: #161618;">
     <!-- <body onload="validarSessao()"> -->
 
     <div class="janela">
@@ -27,7 +28,7 @@
 
         <div class="header-left">
 
-            <h1>AquaTech</h1>
+            <h1>YourTricks</h1>
 
             <div class="hello">
                 <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
@@ -35,19 +36,31 @@
 
             <div class="btn-nav-white">
                 <a href="cards.html">
-                    <h3>Aquários</h3>
+                    <h3>Seus dados</h3>
                 </a>
             </div>
 
             <div class="btn-nav-white">
                 <a href="./dashboard.html">
-                    <h3>Gráficos</h3>
+                    <h3>Histórico</h3>
                 </a>
             </div>
 
             <div class="btn-nav-white">
                 <a href="./mural.html">
-                    <h3>Mural de Avisos</h3>
+                    <h3>Suas manobras</h3>
+                </a>
+            </div>
+
+            <div class="btn-nav-white">
+                <a href="./quiz.html">
+                    <h3>Quiz</h3>
+                </a>
+            </div>
+
+            <div class="btn-nav">
+                <a href="./edicao-aviso.html">
+                    <h3>Sobre skate</h3>
                 </a>
             </div>
 
@@ -58,38 +71,55 @@
         </div>
 
         <div class="dash-right">
-
-            <div class="avisos">
-                <div class="container">
-                    <h1>Editar um aviso</h1>
-                    <div class="div-form">
-                        <label>
-                            ID:
-                            <br>
-                            <input id="input_id" maxlength="100" type="text" style="color: rgb(196, 196, 196)" disabled>
-                        </label>
-                        <label>
-                            Autor:
-                            <br>
-                            <input id="input_nome" maxlength="100" type="text" style="color: rgb(196, 196, 196)"
-                                disabled>
-                        </label>
-                        <label>
-                            Título:
-                            <br>
-                            <input id="input_titulo" maxlength="100" type="text" style="color: rgb(196, 196, 196)"
-                                disabled>
-                        </label>
-                        <br>
-                        <label>
-                            Descrição (máximo de 250 caracteres):
-                            <br>
-                            <textarea id="textarea_descricao" maxlength="250" rows="5"></textarea>
-                        </label>
-                        <br>
-                        <button onclick="editar()">Editar</button>
-                    </div>
-
+            <div class="sobreSkate">
+                <div class="historiaSkate">
+                    <h1>Um pouco sobre a história do skate:</h1>
+                    <span>
+                        O skate começou na Califórnia nos anos 1950 como uma alternativa para os surfistas em dias sem ondas. Inicialmente chamado de "sidewalk surfing", os primeiros skates eram feitos de tábuas de madeira com rodas de patins. Nos anos 1960, o esporte ganhou popularidade e começaram a surgir competições. A introdução das rodas de poliuretano nos anos 1970 revolucionou o skate, proporcionando maior aderência e permitindo novas manobras. Figuras icônicas como Tony Hawk, Rodney Mullen ou até o próprio brasileiro Mineirinho ajudaram a popularizar ainda mais o esporte, que hoje é uma prática globalmente reconhecida e apreciada.
+                    </span>
+                </div>
+                <div class="skateComp">
+                    <h1>Do que é composto o skate?</h1>
+                    <h3>
+                        O skate é montado através de 6 peças principais, que são elas:
+                    </h3>
+                    <span>
+                        - Shape: Peça feita de madeira que pode ser de marfin ou maple, é a peça onde o skatista vai em cima.
+                    </span><br>
+                    <span>
+                        - Lixa: É o revestimento do skate, basicamente serve para fixar o pé do skatista na hora de montar no skate.
+                    </span><br>
+                    <span>
+                        - Truck: É a base do skate, consiste em um eixo de metal que conecta as rodas ao shape.
+                    </span><br>
+                    <span>
+                        - Amortecedor: Peça que fica entre o truck e o shape, sua função é dar maciês na hora de andar, também auxilia o skate a fazer curvas.
+                    </span><br>
+                    <span>
+                        - Rodas: É o que faz o skate se locomover, as rodas são fixadas no truck.
+                    </span><br>
+                    <span>
+                        - Rolamento: Peça que é alocada internamente nas rodas, são responsáveis por darem giro a roda.
+                    </span>
+                </div>
+                <div class="canaisRecomendados">
+                    <h1>Canais do youtube recomendados:</h1>
+                    <h3>Estes canais apresentam sobre têndencias do skate, tutoriais e o estilo de vida no skate</h3>
+                    <h2><a href="https://www.youtube.com/channel/UCa46HjkjoHbg7ADOHL1QtcA">SKTBR</a></h2> 
+                    <h2><a href="https://www.youtube.com/channel/UCtD4ZYxxrYZG6lCdqMirGkQ">3Sskaters</a></h2>
+                    <h2><a href="https://www.youtube.com/channel/UCQY5qmmyjvJckOh--LWHnQg">RodFilmes</a></h2>
+                    <h2><a href="https://www.youtube.com/@SobreSkate">Sobreskate</a></h2>
+                    <h2><a href="https://www.youtube.com/@ademafia915">Ademafia</a></h2>
+                    <h2><a href="https://www.youtube.com/@ThrasherMag">Thrasher Magazine</a></h2>
+                </div>
+                <div class="lojasSkate">
+                    <h1>Lojas para montar seu primeiro skate:</h1>
+                    <h3>Aqui você encontra as lojas referências no mundo do skate, com as melhores peças para iniciar no skate</h3>
+                    <h2><a href="https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.skatedosonhos.com.br/&ved=2ahUKEwjCrqWe1L2GAxW4rJUCHZr_BAQQFnoECBsQAQ&usg=AOvVaw1yTM9Z-OYeuCSl7QuuWbEJ">Skate dos Sonhos</a></h2> 
+                    <h2><a href="https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.matrizskateshop.com.br/&ved=2ahUKEwjCrqWe1L2GAxW4rJUCHZr_BAQQFnoECDMQAQ&usg=AOvVaw2BKZS-NOkNFdzHI4Ywb54s">Matriz Skate Shop</a></h2>
+                    <h2><a href="https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://cbskateshop.com.br/&ved=2ahUKEwjCrqWe1L2GAxW4rJUCHZr_BAQQFnoECDAQAQ&usg=AOvVaw0xV_NrqDEAevOyVvGpcs35">CB Skate</a></h2>
+                    <h2><a href="https://www.googleadservices.com/pagead/aclk?sa=L&ai=DChcSEwi0zYKh1b2GAxWvWkgAHU1TAMsYABAAGgJjZQ&gclid=Cj0KCQjwsPCyBhD4ARIsAPaaRf0AkGV3sV0z2uHDWhRcqrDYuU4yukeZkYX59hkyZVdqmCnOoiGfq6QaAsGzEALw_wcB&ohost=www.google.com&cid=CAESVeD2BzM3wf6vtZ4g6h3Wwd7YFBZPEKt7XwL_ozCFCWnAbReCOUUW-qfGZBuDwbMquOCFzoNRFL_PVhkdmWZ3XJ0S6bVl4f-Y8GpQYLUKEtFKJXL8dHw&sig=AOD64_0GmeKb10N04H41UaOH_TzE86XL-Q&q&adurl&ved=2ahUKEwiLgvyg1b2GAxVHrpUCHYrJDXYQ0Qx6BAgHEAE">Ollie's Point</a></h2>
+                    <h2><a href="https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.virtualskateshop.com.br/&ved=2ahUKEwjCrqWe1L2GAxW4rJUCHZr_BAQQFnoECC8QAQ&usg=AOvVaw3fYBP77mNxoJ9IujcADvo1">Virtual Skate</a></h2>
                 </div>
             </div>
         </div>

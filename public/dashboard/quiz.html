@@ -8,9 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YourTricks | Histórico</title>
 
-    
+
     <link rel="stylesheet" href="./../css/dashboards.css">
     <link rel="stylesheet" href="./../css/estilo.css" />
+    <link rel="icon" href="../assets/icon/logoSite.png">
     <script src="../js/sessao.js"></script>
     <script src="./../js/alerta.js"></script>
 
@@ -60,6 +61,12 @@
             <div class="btn-nav">
                 <a href="./mural.html">
                     <h3>Quiz</h3>
+                </a>
+            </div>
+
+            <div class="btn-nav-white">
+                <a href="./edicao-aviso.html">
+                    <h3>Sobre skate</h3>
                 </a>
             </div>
 
@@ -163,7 +170,7 @@
                         </label>
                     </div>
                 </div>
-                
+
                 <div class="questionContainer">
                     <h2 class="marginQuiz">Questão 5</h2>
                     <span>Manobra em que o skate gira 540° e o corpo 360°:</span>
@@ -189,7 +196,8 @@
 
                 <div class="questionContainer">
                     <h2 class="marginQuiz">Questão 6</h2>
-                    <span>Qual o nome da manobra em que se realiza um tail de from na rampa segurando o nose com a mão de trás e tirando a perna da frente:</span>
+                    <span>Qual o nome da manobra em que se realiza um tail de from na rampa segurando o nose com a mão
+                        de trás e tirando a perna da frente:</span>
                     <div class="containerResposta">
                         <label for="option6">
                             <input type="radio" name="option6" class="radioCont" value="0">
@@ -266,7 +274,7 @@
                         </label>
                         <label for="option9">
                             <input type="radio" name="option9" class="radioCont" value="1">
-                           Nigthmare flip
+                            Nigthmare flip
                         </label>
                         <label for="option9">
                             <input type="radio" name="option9" class="radioCont" value="0">
@@ -318,14 +326,17 @@
 </html>
 
 <script>
-    function sendResponse(){
+    function sendResponse() {
         let pontuacao = document.querySelectorAll('.radioCont');
         let displayPlacar = placar;
         let total = 0;
+        let rastreio = 0;
 
         for (let i = 0; i < pontuacao.length; i++) {
-            if(pontuacao[i].checked){
+            if (pontuacao[i].checked) {
                 total += Number(pontuacao[i].value)
+            } else {
+                rastreio++;
             }
         }
 
@@ -333,23 +344,26 @@
         displayPlacar.innerHTML += `${total}/10`;
         alert(`total: ${total}`)
 
-        
-        
-        fetch('/quiz/cadastrar', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                idUserServer: sessionStorage.ID_USUARIO,
-                pontuacaoServer: total
-            })
-        }).then(response => {
-            if(response.status == 200){
-                alert(`Pontuação pública pelo usuário: ${sessionStorage.ID_USUARIO}\n Pontuação: ${total}`)
-            }
-        }).catch(response =>{
-            alert(response.erro)
-        });
+
+        if (rastreio >= 31) {
+            alert('Você não respondeu o quiz!')
+        } else {
+            fetch('/quiz/cadastrar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    idUserServer: sessionStorage.ID_USUARIO,
+                    pontuacaoServer: total
+                })
+            }).then(response => {
+                if (response.status == 200) {
+                    alert(`Pontuação pública pelo usuário: ${sessionStorage.ID_USUARIO}\n Pontuação: ${total}`)
+                }
+            }).catch(response => {
+                alert(response.erro)
+            });
+        }
     }
 </script>

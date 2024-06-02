@@ -23,7 +23,7 @@ router.put("/editar/:idAviso", function (req, res) {
     anotacoesController.editar(req, res);
 });
 
-router.delete("/deletar/:idAviso", function (req, res) {
+router.delete("/deletar", function (req, res) {
     anotacoesController.deletar(req, res);
 });
 

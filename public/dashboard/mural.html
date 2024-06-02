@@ -10,6 +10,7 @@
 
     <link rel="stylesheet" href="./../css/dashboards.css">
     <link rel="stylesheet" href="./../css/estilo.css" />
+    <link rel="icon" href="../assets/icon/logoSite.png">
     <script src="../js/sessao.js"></script>
     <script src="./../js/alerta.js"></script>
 
@@ -54,6 +55,12 @@
                 </a>
             </div>
 
+            <div class="btn-nav-white">
+                <a href="./edicao-aviso.html">
+                    <h3>Sobre skate</h3>
+                </a>
+            </div>
+
             <div class="btn-logout" onclick="limparSessao()">
                 <h3>Sair</h3>
             </div>
@@ -84,10 +91,13 @@
                             </label>
                             <br>
                             <br>
+                            <h2>Este mural é utilizado para você inserir as manobras que já aprendeu, com o intuito de acompanhar sua evolução no skate</h2>
                             <button>Enviar</button>
                         </form>
                     </div>
+                    <h2></h2>
                     <h1>Mural de Manobras</h1>
+                    <h2 id="ttMan">Você aprendeu um total de: </h2>
                     <div class="div-results">
                         <div id="feed_container" class="feed-container">
                         </div>
@@ -159,11 +169,12 @@
 
     function deletar(idAviso) {
         console.log("Criar função de apagar post escolhido - ID" + idAviso);
-        fetch(`/avisos/deletar/${idAviso}`, {
+        fetch(`/anotacoes/deletar`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"
-            }
+            }, 
+            body: JSON.stringify({idAvisoServer: idAviso})
         }).then(function (resposta) {
 
             if (resposta.ok) {
@@ -178,7 +189,7 @@
             console.log(`#ERRO: ${resposta}`);
         });
     }
-
+    var totalManobra = 0;
     function atualizarFeed() {
         fetch("/anotacoes/listar").then(function (resposta) {
             if (resposta.ok) {
@@ -203,18 +214,20 @@
                         var spanID = document.createElement("span");
                         var spanTitulo = document.createElement("span");
                         var spanNome = document.createElement("span");
+                        var h3My = document.createElement("h3");
                         var divDescricao = document.createElement("div");
                         var divButtons = document.createElement("div");
                         // var btnEditar = document.createElement("button");
-                        // var btnDeletar = document.createElement("button");
+                        var btnDeletar = document.createElement("button");
 
 
                         spanID.innerHTML = "ID: <b>" + publicacao.idAviso + "</b>";
                         spanTitulo.innerHTML = "Título: <b>" + publicacao.titulo + "</b>";
                         spanNome.innerHTML = "Autor: <b>" + publicacao.nome + "</b>";
+                        h3My.innerHTML = "Sua manobra!";
                         divDescricao.innerHTML = "Descrição: <b>" + publicacao.anotacao + "</b>";
                         // btnEditar.innerHTML = "Editar";
-                        // btnDeletar.innerHTML = "Deletar";
+                        btnDeletar.innerHTML = "Deletar";
 
                         divPublicacao.className = "publicacao";
                         spanTitulo.id = "inputNumero" + publicacao.idAviso;
@@ -228,9 +241,9 @@
                         // btnEditar.id = "btnEditar" + publicacao.idAviso;
                         // btnEditar.setAttribute("onclick", `editar(${publicacao.idAviso})`);
 
-                        // btnDeletar.className = "publicacao-btn-editar"
-                        // btnDeletar.id = "btnDeletar" + publicacao.idAviso;
-                        // btnDeletar.setAttribute("onclick", `deletar(${publicacao.idAviso})`);
+                        btnDeletar.className = "publicacao-btn-editar"
+                        btnDeletar.id = "btnDeletar" + publicacao.idAviso;
+                        btnDeletar.setAttribute("onclick", `deletar(${publicacao.idAviso})`);
 
                         divPublicacao.appendChild(spanID);
                         divPublicacao.appendChild(spanNome);
@@ -238,9 +251,15 @@
                         divPublicacao.appendChild(divDescricao);
                         divPublicacao.appendChild(divButtons);
                         // divButtons.appendChild(btnEditar);
-                        // divButtons.appendChild(btnDeletar);
+                        if(publicacao.nome == sessionStorage.NOME_USUARIO){
+                            divButtons.appendChild(h3My);
+                            divButtons.appendChild(btnDeletar);
+                            totalManobra++;
+                        }
                         feed.appendChild(divPublicacao);
                     }
+                    if(totalManobra == 1) ttMan.innerHTML += totalManobra + ' Manobra';
+                    else ttMan.innerHTML += totalManobra + ' Manobras';
 
                     finalizarAguardar();
                 });

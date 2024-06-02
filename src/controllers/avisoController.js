@@ -109,12 +109,12 @@ function editar(req, res) {
 }
 
 function deletar(req, res) {
-    var idAviso = req.params.idAviso;
+    var idAviso = req.body.idAvisoServer;
 
     avisoModel.deletar(idAviso)
         .then(
             function (resultado) {
-                res.json(resultado);
+                res.status(200).json({ok: true, data: resultado});
             }
         )
         .catch(
