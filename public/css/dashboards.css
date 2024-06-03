@@ -395,11 +395,12 @@ canvas {
 
 .btn-nav-white {
   width: 40%;
-  background-color: white;
-  border: 3px solid #e63e3e;
+  background-color: black;
+  border: 1px solid white;
   border-radius: 5px;
   text-align: center;
   padding: 2% 5%;
+  color: white;
 }
 
 .btn-nav-white h3 {
@@ -418,8 +419,8 @@ canvas {
   margin: 0;
   padding: 0;
   width: 20%;
-  background-color: #32b9cd;
-  color: white;
+  background-color: rgb(179, 169, 42);
+  color: black;
   border-radius: 10px;
   text-align: center;
   padding: 10px 15px;

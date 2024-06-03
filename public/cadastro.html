@@ -16,6 +16,7 @@
 </head>
 
 <!-- <body onload="listar()"> -->
+
 <body>
   <!--header inicio-->
   <div class="header">
@@ -115,45 +116,57 @@
       setInterval(sumirMensagem, 5000);
     }
 
-    // Enviando o valor da nova input
-    fetch("/usuarios/cadastrar", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        // crie um atributo que recebe o valor recuperado aqui
-        // Agora vá para o arquivo routes/usuario.js
-        nomeServer: nomeVar,
-        emailServer: emailVar,
-        senhaServer: senhaVar
-      }),
-    })
-      .then(function (resposta) {
-        console.log("resposta: ", resposta);
-
-        if (resposta.ok) {
-          cardErro.style.display = "block";
-
-          mensagem_erro.innerHTML =
-            "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
-
-          setTimeout(() => {
-            window.location = "login.html";
-          }, "2000");
-
-          // limparFormulario();
-          // finalizarAguardar();
-        } else {
-          throw "Houve um erro ao tentar realizar o cadastro!";
-        }
+    if (emailVar.indexOf('@') === -1 || emailVar.indexOf('.') === -1) {
+      cardErro.style.display = "block";
+      mensagem_erro.innerHTML = 'O e-mail deve conter "@" e "."';
+      setInterval(sumirMensagem, 5000);
+    } else if (senhaVar.length < 8) {
+      cardErro.style.display = "block";
+      mensagem_erro.innerHTML = 'A senha deve conter no mínimo 8 caracteres';
+      setInterval(sumirMensagem, 5000);
+    } else {
+      fetch("/usuarios/cadastrar", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          // crie um atributo que recebe o valor recuperado aqui
+          // Agora vá para o arquivo routes/usuario.js
+          nomeServer: nomeVar,
+          emailServer: emailVar,
+          senhaServer: senhaVar
+        }),
       })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-        // finalizarAguardar();
-      });
+        .then(function (resposta) {
+          console.log("resposta: ", resposta);
 
-    return false;
+          if (resposta.ok) {
+            cardErro.style.display = "block";
+
+            mensagem_erro.innerHTML =
+              "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+
+            setTimeout(() => {
+              window.location = "login.html";
+            }, "2000");
+
+            // limparFormulario();
+            // finalizarAguardar();
+          } else {
+            throw "Houve um erro ao tentar realizar o cadastro!";
+          }
+        })
+        .catch(function (resposta) {
+          console.log(`#ERRO: ${resposta}`);
+          // finalizarAguardar();
+        });
+
+      return false;
+    }
+
+    // Enviando o valor da nova input
+
   }
 
   // function listar() {

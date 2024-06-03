@@ -157,12 +157,13 @@ body {
 
 .card {
   width: 50%;
-  background-color: #e5e5e5;
+  background-color: rgb(255,255,255, 0.6);
+  backdrop-filter: blur(10px);
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  color: palevioletred;
+  color: black;
   flex-direction: column;
   height: fit-content;
   padding: 20px 0;
@@ -187,7 +188,7 @@ body {
 }
 
 .formulario input {
-  border: 2px solid grey;
+  border: 2px solid black;
   text-align: center;
   border-radius: 10px;
   margin: 0;
@@ -219,7 +220,7 @@ body {
   font-weight: 600;
   font-size: 18px;
   color: #fff;
-  background-color: #e6005a;
+  background-color: #e3b062;
   width: 120px;
   height: 30px;
   align-self: center;
