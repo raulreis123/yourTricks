@@ -5,6 +5,7 @@ const hashPass = require("../services/hashFunction");
 function autenticar(req, res) {
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
+    senha = hashPass(senha);
 
     if (email == undefined) {
         res.status(400).send("Seu email está undefined!");
@@ -56,6 +57,7 @@ function cadastrar(req, res) {
     var nome = req.body.nomeServer;
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
+    senha = hashPass(senha);
 
     // Faça as validações dos valores
     if (nome == undefined) {
