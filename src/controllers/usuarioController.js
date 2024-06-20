@@ -1,4 +1,5 @@
-var usuarioModel = require("../models/usuarioModel");
+const usuarioModel = require("../models/usuarioModel");
+const hashPass = require("../services/hashFunction");
 // var aquarioModel = require("../models/aquarioModel");
 
 function autenticar(req, res) {
