@@ -29,7 +29,7 @@
 
 <!-- <body onload=" atualizarFeed()"> -->
 
-<body>
+<body onload="showUser()">
 
     <div class="janela">
         <div class="header-left">
@@ -326,6 +326,10 @@
 </html>
 
 <script>
+    function showUser(){
+        b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+    }
+
     function sendResponse() {
         let pontuacao = document.querySelectorAll('.radioCont');
         let displayPlacar = placar;

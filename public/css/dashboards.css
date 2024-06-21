@@ -116,10 +116,10 @@ body {
 }
 
 .dash {
-  width: 80%;
+  width: 100%;
   position: relative;
   top: 0;
-  left: 20%;
+  /* left: 5%; */
   background-color: #161618;
   height: 100vh;
   overflow: auto;
@@ -342,10 +342,10 @@ canvas {
   top: 0;
   left: 0;
   z-index: 999;
-  height: 100vh;
-  width: 20%;
+  height: 70px;
+  width: 100%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
   border-right: 3px solid white;
@@ -365,6 +365,7 @@ canvas {
 }
 
 .header-left h1 {
+  margin-left: 20px;
   color: #e63e3e;
 }
 
@@ -385,22 +386,31 @@ canvas {
 }
 
 .btn-nav {
-  width: 40%;
+  display: flex;
+  width: 28%;
+  height: 50px;
+  margin-right: 20px;
   color: white;
   background-color: #e63e3e;
   border-radius: 5px;
-  text-align: center;
-  padding: 2% 5%;
+  justify-content: center;
+  align-items: center;
+  /* padding: 2% 5%; */
 }
 
 .btn-nav-white {
-  width: 40%;
+  display: flex;
+  width: 28%;
+  height: 50px;
+  margin-right: 20px;
+  color: white;
   background-color: black;
   border: 1px solid white;
   border-radius: 5px;
   text-align: center;
-  padding: 2% 5%;
-  color: white;
+  justify-content: center;
+  align-items: center;
+  /* padding: 2% 5%; */
 }
 
 .btn-nav-white h3 {
@@ -416,15 +426,19 @@ canvas {
 }
 
 .btn-logout {
-  margin: 0;
-  padding: 0;
-  width: 20%;
+  /* margin: 0;
+  padding: 0; */
+  display: flex;
+  width: 28%;
+  height: 50px;
   background-color: rgb(179, 169, 42);
   color: black;
   border-radius: 10px;
   text-align: center;
-  padding: 10px 15px;
-  margin-bottom: 100px;
+  align-items: center;
+  justify-content: center;
+  /* padding: 10px 15px; */
+  /* margin-bottom: 100px; */
   cursor: pointer;
 }
 
@@ -528,9 +542,15 @@ canvas {
   width: 100%;
   height: 100%;
   display: flex;
+  margin-top: 70px;
+  /* margin-left: 10px; */
   /* justify-content: center; */
   flex-direction: column;
   color: white;
+}
+
+.alinhamento{
+  margin-left: 15px;
 }
 
 .canaisRecomendados a,
