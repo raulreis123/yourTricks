@@ -31,18 +31,18 @@
             <div class="hello">
                 <h3>Olá, <span id="b_usuario"></span>!</h3>
             </div>
-            
-            
+
+
             <div class="btn-nav-white" onclick="exibUser()">
                 <a href="./cards.html">
                     <h4>Seus dados</h4>
                 </a>
             </div>
-            
+
             <div class="btn-nav" onclick="exibUser()">
                 <h4>Game</h4>
             </div>
-            
+
             <div class="btn-nav-white">
                 <a href="./dashboard.html">
                     <h4>Histórico</h4>
@@ -74,19 +74,292 @@
         </div>
 
         <div class="dash">
-            
+            <audio class="audio-jump">
+                <source src="images-audio/pulo.mp3" type="audio/mpeg">
+            </audio>
+            <audio class="audio-die">
+                <source src="images-audio/mario-death.mp3" type="audio/mpeg">
+            </audio>
+            <audio class="audio-level">
+                <source src="images-audio/level-up.mp3" type="audio/mpeg">
+            </audio>
+
+
+            <div class="fundo">
+                <h1 class="font">YourTricks</h1>
+                <div class="game-board">
+                    <h2 class="placar">Score: 00</h2>
+                    <img src="./auxGame/images/nuvens.png" class="nuvens">
+                    <img class="pipe" src="./auxGame/images/pipe1.png">
+                    <img src="./auxGame/images/personagemSFundo.png" class="mario">
+                    <img src="./auxGame/images/game_over.png" class="overScreen">
+                </div>
+                <button style="font-size: 20px;" class="btn btn-dark retry" onclick="reload()">Tentar novamente</button>
+                <div class="txt">
+                    Precione qualquer tecla para iniciar o Jogo!!!
+                </div>
+            </div>
         </div>
 
     </div>
 
 </body>
 
+<!-- Script Jogo de skate -->
+
 <script>
-    function showUser(){
+    var cont = 0;
+    var control = true;
+    var control1 = 0;
+
+    const jump = () => {
+        const mario = document.querySelector('.mario');
+        // const pipe = document.querySelector('.pipe' );
+        const audio = document.querySelector('.audio-jump');
+
+        mario.classList.add('jump');
+        audio.play();
+
+        setTimeout(() => {
+            mario.classList.remove('jump');
+        }, 500);
+    }
+
+    const loop = setInterval(() => {
+        const pipe = document.querySelector('.pipe');
+        const mario = document.querySelector('.mario');
+        const nuv = document.querySelector('.nuvens');
+        const over = document.querySelector('.overScreen');
+        var placar = document.querySelector('.placar');
+
+
+        marioPos = +window.getComputedStyle(mario).bottom.replace('px', '');
+        pipePos = pipe.offsetLeft;
+        // const anim = pipe.style.animation;
+
+
+        // console.log('animation' + anim);
+        if (pipePos <= 45 && pipePos > 0 && marioPos < 74) {
+            pipe.style.animation = 'none';
+            nuv.style.animation = 'none';
+            over.style.display = 'block';
+            mario.src = './auxGame/images/personagemSFundo.png';
+            mario.classList.add('over');
+            audio_die.play();
+
+
+            // console.log('Fim cont = ' + cont);
+            clearInterval(loop);
+        }
+
+        if (pipePos < -10 && control) {
+            cont++;
+            control = false;
+        }
+        else if (pipePos > 140 && !control) {
+            control = true;
+        }
+
+        if (cont > 9) {
+            placar.innerHTML = 'Score: ' + cont;
+            if (mario.classList.contains('over')) {
+                pipe.style.animation = 'none';
+            } else {
+                pipe.style.animation = 'pipe-animation 1s infinite linear';
+                if (control1 == 0) {
+                    audio_up.play();
+                    control1++;
+                }
+            }
+        }
+        else {
+            placar.innerHTML = 'Score: 0' + cont;
+        }
+    }, 10);
+
+    document.addEventListener('keydown', jump);
+
+    function reload() {
+        window.location.reload();
+    }
+</script>
+
+<!-- Estilização do jogo de skate -->
+<style>
+    .font {
+        position: relative;
+        top: 60px;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 70px;
+        width: 300px;
+        font-family: retro;
+    }
+
+    .placar {
+        position: absolute;
+        top: 1%;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        width: 260px;
+        z-index: 3;
+        font-family: retro2;
+        animation: placar-animation;
+        background-color: #333;
+        border-radius: 10px;
+        color: white;
+    }
+
+    @font-face {
+        font-family: retro;
+        src: url(fonte/V5Xtende.ttf);
+    }
+
+    @font-face {
+        font-family: retro2;
+        src: url(fonte/wide_pixel-7.ttf);
+    }
+
+    .fundo {
+        height: 132vh;
+        background: #b4c6d4;
+    }
+
+    .game-board {
+        width: 80%;
+        top: 30px;
+        height: 500px;
+        border: 1px groove #333;
+        margin: 0 auto;
+        position: relative;
+        overflow: hidden;
+        border-bottom-color: #62c91c;
+        border-bottom-width: 20px;
+        background: linear-gradient(#5aabe8, white);
+    }
+
+
+    .nuvens {
+        position: absolute;
+        width: 500px;
+        animation: nuvens 7s infinite linear;
+    }
+
+    .pipe {
+        position: absolute;
+        width: 200px;
+        bottom: -20px;
+        z-index: 1;
+        animation: pipe-animation 2s infinite linear;
+    }
+
+    .mario {
+        position: absolute;
+        bottom: 0;
+        left: -10px;
+        width: 150px;
+    }
+
+    .over {
+        width: 90px;
+        bottom: 80px;
+        left: 80px;
+    }
+
+    .retry {
+        position: relative;
+        top: 60px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .jump {
+        animation: jump 700ms ease-out;
+    }
+
+    .txt {
+        position: absolute;
+        top: 800px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: retro2;
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .overScreen {
+        position: absolute;
+        display: none;
+        width: 300px;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 30%;
+    }
+
+    @keyframes pipe-animation {
+        from {
+            right: -136px;
+        }
+
+        to {
+            right: 90%;
+        }
+    }
+
+    @keyframes jump {
+        0% {
+            bottom: 0;
+        }
+
+        30% {
+            bottom: 140px;
+        }
+
+        40% {
+            bottom: 140px;
+        }
+
+        50% {
+            bottom: 140px;
+        }
+
+        60% {
+            bottom: 140px;
+        }
+
+        100% {
+            bottom: 0px;
+        }
+    }
+
+    @keyframes nuvens {
+        from {
+            right: -510px;
+        }
+
+        to {
+            right: 100%;
+        }
+    }
+
+    @keyframes placar-animation {
+        from {
+            background-color: blue;
+        }
+
+        to {
+            background-color: #333;
+        }
+    }
+</style>
+
+<script>
+    function showUser() {
         b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
     }
 
-    document.addEventListener("DOMContentLoaded", ()=>{
+    document.addEventListener("DOMContentLoaded", () => {
         var cardUser = document.querySelector('.cardUser');
         cardUser.style.display = 'none';
         setTimeout(exibUser(), 2500);
@@ -95,9 +368,9 @@
     function exibUser() {
         var cardUser = document.querySelector('.cardUser');
 
-        if(cardUser.style.display == 'flex'){
+        if (cardUser.style.display == 'flex') {
             cardUser.style.display = 'none';
-        } else{
+        } else {
             cardUser.style.display = 'flex'
         }
 
