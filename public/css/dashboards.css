@@ -393,6 +393,7 @@ canvas {
   color: white;
   background-color: #e63e3e;
   border-radius: 5px;
+  text-align: center;
   justify-content: center;
   align-items: center;
   /* padding: 2% 5%; */
