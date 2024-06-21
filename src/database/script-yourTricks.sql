@@ -1,3 +1,7 @@
+-- show databases;
+
+-- drop database yourTricks;
+
 create database yourTricks;
 
 use yourTricks;
@@ -6,7 +10,7 @@ create table usuario(
 	id int primary key auto_increment,
     nome varchar(45) not null,
     email varchar(100) not null,
-    senha varchar(50) not null
+    senha varchar(64) not null
 );
 
 create table quiz(

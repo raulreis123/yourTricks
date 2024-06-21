@@ -2,10 +2,11 @@ const usuarioModel = require("../models/usuarioModel");
 const hashPass = require("../services/hashFunction");
 // var aquarioModel = require("../models/aquarioModel");
 
-function autenticar(req, res) {
+async function autenticar(req, res) {
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
-    senha = hashPass(senha);
+
+    await hashPass(senha).then(hash=> {senha = hash;})
 
     if (email == undefined) {
         res.status(400).send("Seu email está undefined!");
@@ -52,12 +53,12 @@ function autenticar(req, res) {
 
 }
 
-function cadastrar(req, res) {
+async function cadastrar(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
     var nome = req.body.nomeServer;
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
-    senha = hashPass(senha);
+    await hashPass(senha).then(hash=> {senha = hash;})
 
     // Faça as validações dos valores
     if (nome == undefined) {
