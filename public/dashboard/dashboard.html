@@ -48,7 +48,7 @@
             </div>
 
             <div class="btn-nav">
-                <h4>Histórico</h4>
+                <h4>Estatísticas</h4>
             </div>
 
             <div class="btn-nav-white">
@@ -75,16 +75,21 @@
         </div>
 
         <div class="dash">
-            <div id="titleDash">
+            <!-- <div id="titleDash">
                 <h1>Este gráfico exibe suas últimas 10 tentativas no quiz</h1>
-            </div>
-
-            <div class="btns-dash" id="btnAquario">
-                <!-- O gráfico é chamado de acordo com o id (fk_aquario) do banco  -->
-            </div>
+            </div> -->
+            
             <div id="graficos">
+                <!-- Menu lateral para navegação entre os gráficos 24/06/2024 -->
+                <div class="menuGrafico">
+                    <h2>Selecione um gráfico</h2>
+                    <button>Gráfico 1</button>
+                    <button>Gráfico 2</button>
+                    <button>Gráfico 3</button>
+                    <button>Gráfico 4</button>
+                </div>
                 <div id="grafico1" class="display-block">
-                    <canvas id="myChartCanvas1" width="400" height="200"></canvas>
+                    <canvas id="myChartCanvas1"></canvas>
                     <div class="label-captura">
                         <p id="avisoCaptura1" style="color: aliceblue;"></p>
                     </div>

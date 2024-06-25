@@ -109,7 +109,39 @@ body {
   margin-left: 30px;
 }
 
+
+
+
 /* pagina graficos */
+
+
+
+/* Menu lateral de navegação para gráficos 24/06/2024 */
+
+#graficos{
+  position: absolute;
+  top: 70px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+#grafico1{
+  margin-left: 50px;
+  width: 100%;
+  height: 100%;
+}
+
+.menuGrafico{
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  column-gap: 50px;
+}
+
+.menuGrafico h2{
+  color: white;
+}
 
 .dash-header {
   background-color: #212124;
@@ -320,9 +352,14 @@ body {
   display: block;
 }
 
+/* Ajuste de estilo e medidas para posicionamento de gráfico 24/06/2024 */
+
 canvas {
-  width: 100% !important;
-  height: 100% !important;
+  width: 90% !important;
+  height: auto !important;
+  margin-top: 30px;
+  background-color: #CBDCD3; 
+  border-radius: 10px;
 }
 
 /* PAGINA DOS GRÁFICOS 2023 */
