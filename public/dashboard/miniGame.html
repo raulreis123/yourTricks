@@ -74,17 +74,6 @@
         </div>
 
         <div class="dash">
-            <audio class="audio-jump">
-                <source src="images-audio/pulo.mp3" type="audio/mpeg">
-            </audio>
-            <audio class="audio-die">
-                <source src="images-audio/mario-death.mp3" type="audio/mpeg">
-            </audio>
-            <audio class="audio-level">
-                <source src="images-audio/level-up.mp3" type="audio/mpeg">
-            </audio>
-
-
             <div class="fundo">
                 <h1 class="font">YourTricks</h1>
                 <div class="game-board">
@@ -115,10 +104,9 @@
     const jump = () => {
         const mario = document.querySelector('.mario');
         // const pipe = document.querySelector('.pipe' );
-        const audio = document.querySelector('.audio-jump');
 
         mario.classList.add('jump');
-        audio.play();
+        
 
         setTimeout(() => {
             mario.classList.remove('jump');
@@ -132,7 +120,6 @@
         const over = document.querySelector('.overScreen');
         var placar = document.querySelector('.placar');
 
-
         marioPos = +window.getComputedStyle(mario).bottom.replace('px', '');
         pipePos = pipe.offsetLeft;
         // const anim = pipe.style.animation;
@@ -145,7 +132,7 @@
             over.style.display = 'block';
             mario.src = './auxGame/images/personagemSFundo.png';
             mario.classList.add('over');
-            audio_die.play();
+            
 
 
             // console.log('Fim cont = ' + cont);
@@ -167,7 +154,7 @@
             } else {
                 pipe.style.animation = 'pipe-animation 1s infinite linear';
                 if (control1 == 0) {
-                    audio_up.play();
+                    
                     control1++;
                 }
             }
@@ -182,7 +169,13 @@
     function reload() {
         window.location.reload();
     }
+
+    // Enviando pontuação de mini game para base de dados 26/06/2024
+    function sendPont(pontuacao){
+        fetch('', {}).then();
+    }
 </script>
+
 
 <!-- Estilização do jogo de skate -->
 <style>
