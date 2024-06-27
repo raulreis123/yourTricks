@@ -10,3 +10,5 @@ router.post('/cadastrar', (req, res)=>{
 router.get('/buscar', (req, res)=>{
     gameController.buscar(req, res);
 });
+
+module.exports = router;

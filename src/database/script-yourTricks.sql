@@ -34,10 +34,22 @@ create table anotacoes(
     dataAnotacao timestamp default current_timestamp
 );
 
+-- Criação de nova tabela Game 26/06/2024
+create table game(
+	idGame int auto_increment,
+    fkUser int not null,
+    constraint pkComposta primary key(idAnotacao, fkUser),
+    constraint fkUsuarioGame foreign key (fkUser)
+		references usuario(id),
+	titulo varchar(50),
+    anotacao varchar(250),
+    dataAnotacao timestamp default current_timestamp
+);
+
 select * from usuario;
 select * from anotacoes;
 
-insert into quiz values(default, 1, 15, default);
+insert into quiz values(default, 3, 10, default);
 
 drop table usuario;
 drop table quiz; 

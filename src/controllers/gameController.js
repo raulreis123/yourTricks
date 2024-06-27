@@ -1,4 +1,4 @@
-const gameModel = require('...');
+const gameModel = require('../models/gameModel');
 
 // Criação de controller para o miniGame 26/06/2024
 function cadastrar(req, res) {
@@ -10,7 +10,7 @@ function cadastrar(req, res) {
     if(dados.id == undefined || dados.pontuacao == undefined){
         res.status(401).send('Os dados não foram recebidos corretamente!')
     }else{
-        gameModel.cadastrar(dados.pontuacao, dados.id)
+        gameModel.cadastrar(dados.id, dados.pontuacao)
         .then(
             ()=>{
                 res.status(200).send('Pontuação cadastrada com sucesso');
