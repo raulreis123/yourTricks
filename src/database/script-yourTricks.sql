@@ -41,9 +41,7 @@ create table game(
     constraint pkComposta primary key(idAnotacao, fkUser),
     constraint fkUsuarioGame foreign key (fkUser)
 		references usuario(id),
-	titulo varchar(50),
-    anotacao varchar(250),
-    dataAnotacao timestamp default current_timestamp
+	pontuacao int
 );
 
 select * from usuario;

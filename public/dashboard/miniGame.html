@@ -132,7 +132,7 @@
             over.style.display = 'block';
             mario.src = './auxGame/images/personagemSFundo.png';
             mario.classList.add('over');
-            
+            sendPont(cont);
 
 
             // console.log('Fim cont = ' + cont);
@@ -172,7 +172,26 @@
 
     // Enviando pontuação de mini game para base de dados 26/06/2024
     function sendPont(pontuacao){
-        fetch('', {}).then();
+        const dados = {
+            idUsuarioServer: sessionStorage.ID_USUARIO,
+            pontuacaoServer: pontuacao
+        }
+
+        fetch('/game/cadastrar', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dados)
+        }).then(resultado =>{
+            if (resultado.status == 200) {
+                alert('Dados cadastrados com sucesso!')
+            } else{
+                alert('Erro ao cadastrar!')
+            }
+        }).catch(erro =>{
+            alert('erro ao cadastrar 2!')
+        });
     }
 </script>
 
