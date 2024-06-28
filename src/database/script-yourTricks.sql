@@ -38,7 +38,7 @@ create table anotacoes(
 create table game(
 	idGame int auto_increment,
     fkUser int not null,
-    constraint pkComposta primary key(idAnotacao, fkUser),
+    constraint pkComposta primary key(idGame, fkUser),
     constraint fkUsuarioGame foreign key (fkUser)
 		references usuario(id),
 	pontuacao int
@@ -46,6 +46,7 @@ create table game(
 
 select * from usuario;
 select * from anotacoes;
+select * from game;
 
 insert into quiz values(default, 3, 10, default);
 

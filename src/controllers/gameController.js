@@ -23,11 +23,13 @@ function cadastrar(req, res) {
 }
 
 function buscar(req, res){
-    const id = req.params.idUsuarioServer;
-    
+    const id = req.params.idUsuario;
+    console.log('Model game acessada, rota buscar!')
     if(id == undefined){
+        console.log('Id de rota model definido');
         res.status(401).send('Não foi possível indentificar o usuário!');
     }else{
+        console.log('Id de rota model definido');
         gameModel.buscar(id)
         .then(resultado =>{
             res.status(200).json({

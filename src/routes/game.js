@@ -7,7 +7,7 @@ router.post('/cadastrar', (req, res)=>{
     gameController.cadastrar(req, res);
 });
 
-router.get('/buscar', (req, res)=>{
+router.get('/buscar/:idUsuario', (req, res)=>{
     gameController.buscar(req, res);
 });
 
