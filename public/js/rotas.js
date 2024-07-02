@@ -12,3 +12,11 @@ function rotaGraf(rota){
             break;
     }
 }
+
+// Criação de um switch simples para o tipo de gráfico 02/07/2024
+function session(type){
+    sessionStorage.typeGraf = type;
+    setTimeout(() => {
+        window.location.reload(true);
+    }, 500);
+}

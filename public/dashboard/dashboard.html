@@ -92,8 +92,9 @@
                 </div>
                 <div id="grafico1" class="display-block">
                     <canvas id="myChartCanvas1"></canvas>
+                    <!-- Criação de elementos para realizar a mudança no tipo de gráfico -->
                     <div class="label-captura">
-                    Tipo de gráfico: <button>Linha</button><button>Barra</button>
+                    Tipo de gráfico: <button onclick="session('line')">Linha</button><button onclick="session('bar')">Barra</button><button onclick="session('pie')">Pizza</button>
                     </div>
                 </div>
             </div>
@@ -103,8 +104,9 @@
     <script>
         document.getElementById('b_usuario').innerHTML = sessionStorage.NOME_USUARIO;
 
-        var idUser = sessionStorage.ID_USUARIO;
-        var proximaAtualizacao;
+        let idUser = sessionStorage.ID_USUARIO;
+        let proximaAtualizacao;
+        let typeGraf = sessionStorage.typeGraf == undefined ? 'line' : sessionStorage.typeGraf;
 
         function obterDadosGrafico() {
             if (proximaAtualizacao != undefined) {
@@ -177,7 +179,7 @@
 
             // Configuração do gráfico
             const config = {
-                type: 'bar',
+                type: typeGraf,
                 data: dados,
                 options: {
                     scales: {

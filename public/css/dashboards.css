@@ -16,7 +16,7 @@ body {
   font-size: 25px;
   column-gap: 30px;
 }
-
+ /* estilização de elementos para mudar o tipo de gráfico */
 .label-captura button{
   font-size: 20px;
   background-color: #5c6bc0;
