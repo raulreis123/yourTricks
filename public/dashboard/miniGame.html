@@ -83,7 +83,7 @@
                     <img src="./auxGame/images/personagemSFundo.png" class="mario">
                     <img src="./auxGame/images/game_over.png" class="overScreen">
                 </div>
-                <button style="font-size: 20px;" class="btn btn-dark retry" onclick="reload()">Tentar novamente</button>
+                <button style="font-size: 20px;" class="btn retry" onclick="reload()">Tentar novamente</button>
                 <div class="txt">
                     Precione qualquer tecla para iniciar o Jogo!!!
                 </div>
@@ -97,81 +97,94 @@
 <!-- Script Jogo de skate -->
 
 <script>
-    var cont = 0;
-    var control = true;
-    var control1 = 0;
-
-    const jump = () => {
-        const mario = document.querySelector('.mario');
-        // const pipe = document.querySelector('.pipe' );
-
-        mario.classList.add('jump');
-        
-
-        setTimeout(() => {
-            mario.classList.remove('jump');
-        }, 500);
+    function showUser() {
+        b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
     }
 
-    const loop = setInterval(() => {
-        const pipe = document.querySelector('.pipe');
-        const mario = document.querySelector('.mario');
-        const nuv = document.querySelector('.nuvens');
-        const over = document.querySelector('.overScreen');
-        var placar = document.querySelector('.placar');
+    // Alterando função de jogo 02/07/2024
+    function iniciar() {
+        var cont = 0;
+        var control = true;
+        var control1 = 0;
 
-        marioPos = +window.getComputedStyle(mario).bottom.replace('px', '');
-        pipePos = pipe.offsetLeft;
-        // const anim = pipe.style.animation;
+        const jump = () => {
+            const mario = document.querySelector('.mario');
+            // const pipe = document.querySelector('.pipe' );
 
-
-        // console.log('animation' + anim);
-        if (pipePos <= 45 && pipePos > 0 && marioPos < 74) {
-            pipe.style.animation = 'none';
-            nuv.style.animation = 'none';
-            over.style.display = 'block';
-            mario.src = './auxGame/images/personagemSFundo.png';
-            mario.classList.add('over');
-            sendPont(cont);
+            mario.classList.add('jump');
 
 
-            // console.log('Fim cont = ' + cont);
-            clearInterval(loop);
+            setTimeout(() => {
+                mario.classList.remove('jump');
+            }, 500);
         }
 
-        if (pipePos < -10 && control) {
-            cont++;
-            control = false;
-        }
-        else if (pipePos > 140 && !control) {
-            control = true;
-        }
+        document.addEventListener('keydown', jump);
 
-        if (cont > 9) {
-            placar.innerHTML = 'Score: ' + cont;
-            if (mario.classList.contains('over')) {
+        const loop = setInterval(() => {
+            const pipe = document.querySelector('.pipe');
+            const mario = document.querySelector('.mario');
+            const nuv = document.querySelector('.nuvens');
+            const over = document.querySelector('.overScreen');
+            var placar = document.querySelector('.placar');
+
+            marioPos = +window.getComputedStyle(mario).bottom.replace('px', '');
+
+            // setando atributos para animação 02/07/2024
+            pipe.style.animation = 'pipe-animation 2s infinite linear';
+            nuv.style.animation = 'nuvens 7s infinite linear';
+
+            pipePos = pipe.offsetLeft;
+            // const anim = pipe.style.animation;
+
+
+            // console.log('animation' + anim);
+            if (pipePos <= 45 && pipePos > 0 && marioPos < 74) {
                 pipe.style.animation = 'none';
-            } else {
-                pipe.style.animation = 'pipe-animation 1s infinite linear';
-                if (control1 == 0) {
-                    
-                    control1++;
+                nuv.style.animation = 'none';
+                over.style.display = 'block';
+                mario.src = './auxGame/images/personagemSFundo.png';
+                mario.classList.add('over');
+                sendPont(cont);
+
+
+                // console.log('Fim cont = ' + cont);
+                clearInterval(loop);
+            }
+
+            if (pipePos < -10 && control) {
+                cont++;
+                control = false;
+            }
+            else if (pipePos > 140 && !control) {
+                control = true;
+            }
+
+            if (cont > 9) {
+                placar.innerHTML = 'Score: ' + cont;
+                if (mario.classList.contains('over')) {
+                    pipe.style.animation = 'none';
+                } else {
+                    pipe.style.animation = 'pipe-animation 1s infinite linear';
+                    if (control1 == 0) {
+
+                        control1++;
+                    }
                 }
             }
-        }
-        else {
-            placar.innerHTML = 'Score: 0' + cont;
-        }
-    }, 10);
+            else {
+                placar.innerHTML = 'Score: 0' + cont;
+            }
+        }, 10);
+    }
 
-    document.addEventListener('keydown', jump);
 
     function reload() {
         window.location.reload();
     }
 
     // Enviando pontuação de mini game para base de dados 26/06/2024
-    function sendPont(pontuacao){
+    function sendPont(pontuacao) {
         const dados = {
             idUsuarioServer: sessionStorage.ID_USUARIO,
             pontuacaoServer: pontuacao
@@ -183,16 +196,19 @@
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(dados)
-        }).then(resultado =>{
+        }).then(resultado => {
             if (resultado.status == 200) {
                 alert('Dados cadastrados com sucesso!')
-            } else{
+            } else {
                 alert('Erro ao cadastrar!')
             }
-        }).catch(erro =>{
+        }).catch(erro => {
             alert('erro ao cadastrar 2!')
         });
     }
+
+    // lógica para que seja incializado o jogo apenas ao clique do usuário 02/07/2024
+    document.addEventListener('keydown', iniciar, { once: true });
 </script>
 
 
@@ -201,8 +217,7 @@
     .font {
         position: relative;
         top: 60px;
-        margin-left: auto;
-        margin-right: auto;
+        margin-left: 30%;
         font-size: 70px;
         width: 300px;
         font-family: retro;
@@ -225,12 +240,12 @@
 
     @font-face {
         font-family: retro;
-        src: url(fonte/V5Xtende.ttf);
+        src: url(./auxGame/fonte/V5Xtende.ttf);
     }
 
     @font-face {
         font-family: retro2;
-        src: url(fonte/wide_pixel-7.ttf);
+        src: url(./auxGame/fonte/wide_pixel-7.ttf);
     }
 
     .fundo {
@@ -242,7 +257,7 @@
         width: 80%;
         top: 30px;
         height: 500px;
-        border: 1px groove #333;
+        border: 2px groove #333;
         margin: 0 auto;
         position: relative;
         overflow: hidden;
@@ -251,11 +266,11 @@
         background: linear-gradient(#5aabe8, white);
     }
 
-
+    /* alteração de atributo para que seja setado apenas ao inicio do jogo 02/07/2024 */
     .nuvens {
         position: absolute;
         width: 500px;
-        animation: nuvens 7s infinite linear;
+        animation: none;
     }
 
     .pipe {
@@ -263,14 +278,14 @@
         width: 200px;
         bottom: -20px;
         z-index: 1;
-        animation: pipe-animation 2s infinite linear;
+        animation: none;
     }
 
     .mario {
         position: absolute;
         bottom: 0;
         left: -10px;
-        width: 150px;
+        width: 250px;
     }
 
     .over {
@@ -284,6 +299,7 @@
         top: 60px;
         left: 50%;
         transform: translateX(-50%);
+        width: 250px;
     }
 
     .jump {
@@ -307,6 +323,7 @@
         left: 50%;
         transform: translateX(-50%);
         top: 30%;
+        z-index: 1;
     }
 
     @keyframes pipe-animation {
@@ -365,30 +382,5 @@
         }
     }
 </style>
-
-<script>
-    function showUser() {
-        b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-        var cardUser = document.querySelector('.cardUser');
-        cardUser.style.display = 'none';
-        setTimeout(exibUser(), 2500);
-    });
-
-    function exibUser() {
-        var cardUser = document.querySelector('.cardUser');
-
-        if (cardUser.style.display == 'flex') {
-            cardUser.style.display = 'none';
-        } else {
-            cardUser.style.display = 'flex'
-        }
-
-        nome_input.value = sessionStorage.NOME_USUARIO;
-        email_input.value = sessionStorage.EMAIL_USUARIO;
-    }
-</script>
 
 </html>

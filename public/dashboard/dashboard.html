@@ -105,14 +105,9 @@
         document.getElementById('b_usuario').innerHTML = sessionStorage.NOME_USUARIO;
 
         let idUser = sessionStorage.ID_USUARIO;
-        let proximaAtualizacao;
         let typeGraf = sessionStorage.typeGraf == undefined ? 'line' : sessionStorage.typeGraf;
 
         function obterDadosGrafico() {
-            if (proximaAtualizacao != undefined) {
-                clearTimeout(proximaAtualizacao);
-            }
-
             fetch(`/quiz/obterDados`, {
                 method: "post",
                 headers: {
