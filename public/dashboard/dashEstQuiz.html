@@ -91,7 +91,9 @@
                     <button>Gráfico 4</button>
                 </div>
                 <div id="grafico1" class="display-block">
+                    <h3 style="color: white;">Consulte as informações abaixo do gráfico!</h3>
                     <canvas id="myChartCanvas1"></canvas>
+                    <h3 style="color: white;">Este gráfico exibe os 10 usuários com as maiores pontuações no quiz, o nome dos usuários estão abaixo da pontuação!</h3>
                     <!-- Criação de elementos para realizar a mudança no tipo de gráfico -->
                     <div class="label-captura">
                     Tipo de gráfico: <button onclick="session('line')">Linha</button><button onclick="session('bar')">Barra</button><button onclick="session('pie')">Pizza</button>
@@ -105,17 +107,14 @@
         document.getElementById('b_usuario').innerHTML = sessionStorage.NOME_USUARIO;
 
         let idUser = sessionStorage.ID_USUARIO;
-        let typeGraf = sessionStorage.typeGraf == undefined ? 'line' : sessionStorage.typeGraf;
+        let typeGraf = sessionStorage.typeGraf == undefined ? 'bar' : sessionStorage.typeGraf;
 
         function obterDadosGrafico() {
-            fetch(`/quiz/obterDados`, {
-                method: "post",
+            fetch(`/quiz/obterRankingQuiz`, {
+                method: "GET",
                 headers: {
                     "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    idUsuario: idUser
-                })
+                }
             }).then(function (response) {
                 console.log(response)
                 if (response.status == 200) {
@@ -145,7 +144,7 @@
 
             // Criando estrutura para plotar gráfico - labels e dados
             // Rótulo que sera inserido no gráfico, no caso indíce da tentativa + 1;
-            const labels = dadosRecebidos.map((registro, index) => `Tentativa:${index + 1}`);
+            const labels = dadosRecebidos.map((registro, index) => `${registro.nome}`);
             const dataPoints = dadosRecebidos.map(registro => registro.pontuation);
 
             console.log('----------------------------------------------');

@@ -19,6 +19,7 @@ body {
  /* estilização de elementos para mudar o tipo de gráfico */
 .label-captura button{
   font-size: 20px;
+  width: 150px;
   background-color: #5c6bc0;
 }
 
