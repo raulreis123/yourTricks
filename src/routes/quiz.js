@@ -12,4 +12,10 @@ router.post("/obterDados", function (req, res) {
     quizController.obterDados(req, res);
 });
 
+// Add rota para consulta de ranking 05/07/2024
+router.get("/obterRankingQuiz", function (req, res) {
+    quizController.ranking(req, res);
+});
+
+
 module.exports = router;

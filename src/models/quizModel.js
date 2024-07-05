@@ -22,7 +22,19 @@ function cadastrar(idUsuario, pontuacao) {
     return database.executar(instrucaoSql);
 }
 
+// Add model para consulta de ranking 05/07/2024
+function ranking() {
+    console.log('Model quiz acessada, Função ranking executada');
+
+    var instrucaoSql = `SELECT quiz.pontuation, usuario.nome FROM quiz JOIN usuario
+                        on quiz.fkUser = usuario.id
+                            ORDER BY quiz.pontuation DESC LIMIT 10;`;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     obterDados,
-    cadastrar
+    cadastrar,
+    ranking
 };

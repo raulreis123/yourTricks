@@ -68,7 +68,23 @@ function cadastrar(req, res) {
     }
 }
 
+// Add controller para consulta de ranking 05/07/2024
+function ranking(req, res) {
+    quizModel.ranking()
+        .then(resposta => {
+            res.status(200).json({
+                ok: true,
+                data: resposta
+            });
+        })
+        .catch(erro =>{
+            console.error(erro);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
 module.exports = {
     obterDados,
-    cadastrar
+    cadastrar,
+    ranking
 }
