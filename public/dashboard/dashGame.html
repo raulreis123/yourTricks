@@ -87,8 +87,8 @@
                     <!-- Criação de função externa para mudar rotas -->
                     <button style="margin-top: 30px;" onclick="rotaGraf('quiz')">Quiz</button>
                     <button onclick="rotaGraf('game')">YourTricks Game</button>
-                    <button>Gráfico 3</button>
-                    <button>Gráfico 4</button>
+                    <button onclick="rotaGraf('rankQuiz')">Ranking Quiz</button>
+                    <button onclick="rotaGraf('rankGame')">Ranking Game</button>
                 </div>
                 <div id="grafico1" class="display-block">
                     <canvas id="myChartCanvas1"></canvas>
@@ -180,7 +180,7 @@
                     scales: {
                         y: {
                             beginAtZero: true,
-                            max: 10
+                            max: undefined
                         }
                     },
                     plugins: {

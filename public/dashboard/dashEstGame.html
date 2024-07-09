@@ -93,8 +93,8 @@
                 <div id="grafico1" class="display-block">
                     <h3 style="color: white;">Consulte as informações abaixo do gráfico!</h3>
                     <canvas id="myChartCanvas1"></canvas>
+                    <h3 style="color: white;">Este gráfico exibe os 10 usuários com as maiores pontuações no quiz, o nome dos usuários estão abaixo da pontuação!</h3>
                     <!-- Criação de elementos para realizar a mudança no tipo de gráfico -->
-                    <h3 style="color: white;">Este gráfico exibe as últimas 10 tentativas que Você realizou no quiz!</h3>
                     <div class="label-captura">
                     Tipo de gráfico: <button onclick="session('line')">Linha</button><button onclick="session('bar')">Barra</button><button onclick="session('pie')">Pizza</button>
                     </div>
@@ -107,17 +107,14 @@
         document.getElementById('b_usuario').innerHTML = sessionStorage.NOME_USUARIO;
 
         let idUser = sessionStorage.ID_USUARIO;
-        let typeGraf = sessionStorage.typeGraf == undefined ? 'line' : sessionStorage.typeGraf;
+        let typeGraf = sessionStorage.typeGraf == undefined ? 'bar' : sessionStorage.typeGraf;
 
         function obterDadosGrafico() {
-            fetch(`/quiz/obterDados`, {
-                method: "post",
+            fetch(`/game/obterRankingGame`, {
+                method: "GET",
                 headers: {
                     "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    idUsuario: idUser
-                })
+                }
             }).then(function (response) {
                 console.log(response)
                 if (response.status == 200) {
@@ -126,8 +123,8 @@
                         plotarGrafico(resposta.data);
                     });
                 } else if (response.status == 204) {
-                    alert("Você ainda não realizou uma tentativa no quiz!")
-                    setTimeout(() => { window.location.href = './quiz.html' }, 2000);
+                    alert("Você ainda não realizou uma tentativa no game!")
+                    setTimeout(() => { window.location.href = './miniGame.html' }, 2000);
                 } else {
                     console.error('Nenhum dado encontrado ou erro na API');
                 }
@@ -140,15 +137,10 @@
         function plotarGrafico(dadosRecebidos) {
             console.log('Iniciando plotagem do gráfico...');
 
-            // Verificando se há menos de 10 registros
-            if (dadosRecebidos.length < 10) {
-                alert("Você tem menos de 10 tentativas. Exibindo todas as tentativas disponíveis.");
-            }
-
             // Criando estrutura para plotar gráfico - labels e dados
             // Rótulo que sera inserido no gráfico, no caso indíce da tentativa + 1;
-            const labels = dadosRecebidos.map((registro, index) => `Tentativa:${index + 1}`);
-            const dataPoints = dadosRecebidos.map(registro => registro.pontuation);
+            const labels = dadosRecebidos.map((registro, index) => `${registro.nome}`);
+            const dataPoints = dadosRecebidos.map(registro => registro.pontuacao);
 
             console.log('----------------------------------------------');
             console.log('Dados recebidos:');
@@ -182,7 +174,7 @@
                     scales: {
                         y: {
                             beginAtZero: true,
-                            max: 10
+                            max: undefined
                         }
                     },
                     plugins: {
