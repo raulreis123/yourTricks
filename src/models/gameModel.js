@@ -15,7 +15,19 @@ function buscar(id){
     return database.executar(instrucaoSql);
 }
 
+// Add model para consulta de ranking 08/07/2024
+function ranking() {
+    console.log('Model game acessada, Função ranking executada');
+
+    var instrucaoSql = `SELECT game.pontuacao, usuario.nome FROM game JOIN usuario
+                        on game.fkUser = usuario.id
+                            ORDER BY game.pontuacao DESC LIMIT 10;`;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     cadastrar,
-    buscar
+    buscar,
+    ranking
 }
