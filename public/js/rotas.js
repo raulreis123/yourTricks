@@ -8,11 +8,14 @@ function rotaGraf(rota) {
             window.location.href = '../dashboard/dashGame.html';
             break;
         // add rota em switch para gráfico
-        case 'rakQuiz':
+        case 'rankQuiz':
             window.location.href = '../dashboard/dashEstQuiz.html';
             break;
+        case 'rankGame':
+            window.location.href = '../dashboard/dashEstGame.html';
+            break;
         default:
-            alert('Nenhum gráfico encontrado!')
+            alert('Gráfico não encontrado!')
             break;
     }
 }
