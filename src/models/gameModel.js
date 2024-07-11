@@ -19,9 +19,10 @@ function buscar(id){
 function ranking() {
     console.log('Model game acessada, Função ranking executada');
 
-    var instrucaoSql = `SELECT game.pontuacao, usuario.nome FROM game JOIN usuario
-                        on game.fkUser = usuario.id
-                            ORDER BY game.pontuacao DESC LIMIT 10;`;
+    var instrucaoSql = `
+    SELECT usuario.nome, MAX(game.pontuacao) AS pontuacao FROM usuario
+	    JOIN game ON id = fkUser GROUP BY nome;
+    `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }

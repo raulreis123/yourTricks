@@ -10,7 +10,7 @@ function obterDados(idUSer) {
 }
 
 // Coloque os mesmos parâmetros aqui. Vá para a var instrucaoSql
-function cadastrar(idUsuario, pontuacao) {
+function cadastrar(idUsuario, pontuacao, typeSel) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrarQuiz():", idUsuario, pontuacao);
     
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
@@ -26,9 +26,10 @@ function cadastrar(idUsuario, pontuacao) {
 function ranking() {
     console.log('Model quiz acessada, Função ranking executada');
 
-    var instrucaoSql = `SELECT quiz.pontuation, usuario.nome FROM quiz JOIN usuario
-                        on quiz.fkUser = usuario.id
-                            ORDER BY quiz.pontuation DESC LIMIT 10;`;
+    var instrucaoSql = `
+    SELECT usuario.nome, MAX(quiz.pontuation) AS pontuation FROM usuario
+        JOIN quiz ON id = fkUser GROUP BY nome;
+    `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
