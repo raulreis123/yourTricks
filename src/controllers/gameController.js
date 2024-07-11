@@ -5,10 +5,10 @@ function cadastrar(req, res) {
     const dados = {
         pontuacao: req.body.pontuacaoServer,
         id: req.body.idUsuarioServer
-    }
+    };
     
     if(dados.id == undefined || dados.pontuacao == undefined){
-        res.status(401).send('Os dados não foram recebidos corretamente!')
+        res.status(401).send('Os dados não foram recebidos corretamente!');
     }else{
         gameModel.cadastrar(dados.id, dados.pontuacao)
         .then(
@@ -44,7 +44,7 @@ function buscar(req, res){
             }      
         })
         .catch(()=>{
-            res.status(500).send('Os dados não foram encontrados!')
+            res.status(500).send('Os dados não foram encontrados!');
         });
         }
 }
@@ -68,4 +68,4 @@ module.exports = {
     cadastrar,
     buscar,
     ranking
-}
+};
