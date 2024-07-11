@@ -91,9 +91,11 @@
                     <button onclick="rotaGraf('rankGame')">Ranking Game</button>
                 </div>
                 <div id="grafico1" class="display-block">
+                    <h3 style="color: white;">Consulte as informações abaixo do gráfico!</h3>
                     <canvas id="myChartCanvas1"></canvas>
+                    <h3 style="color: white;">Este gráfico exibe as últimas 10 tentativas que Você realizou no quiz!</h3>
                     <div class="label-captura">
-                        <p id="avisoCaptura1" style="color: aliceblue;"></p>
+                        Tipo de gráfico: <button onclick="session('line')">Linha</button><button onclick="session('bar')">Barra</button><button onclick="session('pie')">Pizza</button>
                     </div>
                 </div>
             </div>
@@ -104,6 +106,7 @@
         document.getElementById('b_usuario').innerHTML = sessionStorage.NOME_USUARIO;
 
         var idUser = sessionStorage.ID_USUARIO;
+        let typeGraf = sessionStorage.typeGraf == undefined ? 'line' : sessionStorage.typeGraf;
         var proximaAtualizacao;
 
         function obterDadosGrafico() {
@@ -174,7 +177,7 @@
 
             // Configuração do gráfico
             const config = {
-                type: 'line',
+                type: typeGraf,
                 data: dados,
                 options: {
                     scales: {
