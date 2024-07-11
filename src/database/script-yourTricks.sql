@@ -44,6 +44,19 @@ create table game(
 	pontuacao int
 );
 
+-- Criação de nova tabela para guardar a maior pontuação de cada usuário 10/07/2024
+create table maiorQuiz(
+	idMaiorQuiz int auto_increment,
+    fkQuiz int not null,
+    fkUser int not null,
+    constraint pkCompostaQuiz primary key(idMaiorQuiz, fkQuiz, fkUser),
+    constraint fkQuiz foreign key(fkQuiz)
+		references quiz(idQuiz),
+    constraint fkUsuarioMaiorQuiz foreign key(fkUser)
+		references quiz(fkUser),
+	pontuacao int not null
+);
+
 select * from usuario;
 select * from anotacoes;
 select * from game;
@@ -60,3 +73,7 @@ select * from usuario;
 select * from quiz;
 select * from usuario join quiz
 	on usuario.id = quiz.fkUser;
+
+SELECT quiz.pontuation, usuario.nome FROM quiz JOIN usuario
+	on quiz.fkUser = usuario.id
+		ORDER BY quiz.pontuation DESC LIMIT 10;
