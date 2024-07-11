@@ -44,11 +44,10 @@ function cadastrar(req, res) {
 
     // Faça as validações dos valores
     if (idUsuario == undefined) {
-        res.status(400).send("Seu usuário está undefined!");
+        res.status(400).send("Seu usuário está indefinido!");
     } else if (pontuacao == undefined) {
-        res.status(400).send("Sua pontuação está undefined!");
+        res.status(400).send("Sua pontuação está indefinida!");
     } else {
-
         // Passe os valores como parâmetro e vá para o arquivo quizModel.js
         quizModel.cadastrar(idUsuario, pontuacao)
             .then(
