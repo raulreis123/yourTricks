@@ -26,16 +26,22 @@ function buscar(req, res){
     const id = req.params.idUsuario;
     console.log('Model game acessada, rota buscar!')
     if(id == undefined){
-        console.log('Id de rota model definido');
+        console.log('Id de rota model indefinido');
         res.status(401).send('Não foi possível indentificar o usuário!');
     }else{
         console.log('Id de rota model definido');
         gameModel.buscar(id)
         .then(resultado =>{
-            res.status(200).json({
-                ok: true,
-                data: resultado
-            });            
+            if (resultado.length == 0) {
+                res.status(204).json({
+                    ok: true,
+                });
+            } else{
+                res.status(200).json({
+                    ok: true,
+                    data: resultado
+                });
+            }      
         })
         .catch(()=>{
             res.status(500).send('Os dados não foram encontrados!')
