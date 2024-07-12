@@ -19,9 +19,11 @@ function buscar(id){
 function ranking() {
     console.log('Model game acessada, Função ranking executada');
 
+    // Comando ORDER BY adicionado para exibir ranking do maior para o menor 12/07/2024
     var instrucaoSql = `
     SELECT usuario.nome, MAX(game.pontuacao) AS pontuacao FROM usuario
-	    JOIN game ON id = fkUser GROUP BY nome;
+	    JOIN game ON id = fkUser GROUP BY nome
+            ORDER BY pontuacao DESC;
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
