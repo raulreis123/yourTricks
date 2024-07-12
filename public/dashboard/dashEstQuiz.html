@@ -98,6 +98,10 @@
                     <div class="label-captura">
                     Tipo de gráfico: <button onclick="session('line')">Linha</button><button onclick="session('bar')">Barra</button><button onclick="session('pie')">Pizza</button>
                     </div>
+                    <h2>Você está em: <span id="posGame"></span></h2>
+                    <h2 style="color: white;">Ranking de jogadores em tabela:</h2>
+                    <!-- div para exibir o ranking em formato de tabela -->
+                    <div class="tblRank"></div>
                 </div>
             </div>
         </div>
@@ -108,6 +112,9 @@
 
         let idUser = sessionStorage.ID_USUARIO;
         let typeGraf = sessionStorage.typeGraf == undefined ? 'bar' : sessionStorage.typeGraf;
+        // Criação de exibição de posição para o usuário e tabela de ranking 12/07/2024
+        let position = document.getElementById('posGame');
+        let tabela = document.querySelector('.tblRank');
 
         function obterDadosGrafico() {
             fetch(`/quiz/obterRankingQuiz`, {
@@ -142,6 +149,34 @@
             // Rótulo que sera inserido no gráfico, no caso indíce da tentativa + 1;
             const labels = dadosRecebidos.map((registro, index) => `${registro.nome}`);
             const dataPoints = dadosRecebidos.map(registro => registro.pontuation);
+
+                        // A constante index recebe o valor que corresponde a posição do jogador no ranking 12/07/2024
+                        const index = dadosRecebidos.findIndex(element => element.nome === sessionStorage.NOME_USUARIO);
+            if (index != -1) {
+                position.innerHTML += ` ${index + 1}º lugar`;
+            } else {
+                position.innerHTML += ' indefinido';
+            }
+
+            let row = '';
+            dadosRecebidos.forEach(element => {
+                row += `
+                <tr>
+                    <td>${element.nome}</td><td>${element.pontuation} pontos</td>
+                </tr>`;
+            })
+
+            console.log(`Linhas de tabela: \n${row}\n\n`);
+
+            tabela.innerHTML = `
+                <table>
+                    <tr>
+                        <th>Nome:</th><th>Pontuação:</th>
+                    </tr>
+                    ${row}
+                </table>
+                `;
+
 
             console.log('----------------------------------------------');
             console.log('Dados recebidos:');

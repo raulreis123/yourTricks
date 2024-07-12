@@ -79,7 +79,7 @@
             <!-- <div id="titleDash">
                 <h1>Este gráfico exibe suas últimas 10 tentativas no quiz</h1>
             </div> -->
-            
+
             <div id="graficos">
                 <!-- Menu lateral para navegação entre os gráficos 24/06/2024 -->
                 <div class="menuGrafico">
@@ -93,11 +93,17 @@
                 <div id="grafico1" class="display-block">
                     <h3 style="color: white;">Consulte as informações abaixo do gráfico!</h3>
                     <canvas id="myChartCanvas1"></canvas>
-                    <h3 style="color: white;">Este gráfico exibe os 10 usuários com as maiores pontuações no quiz, o nome dos usuários estão abaixo da pontuação!</h3>
+                    <h3 style="color: white;">Este gráfico exibe os 10 usuários com as maiores pontuações no YourTricks
+                        Game, o nome dos usuários estão abaixo da pontuação!</h3>
                     <!-- Criação de elementos para realizar a mudança no tipo de gráfico -->
                     <div class="label-captura">
-                    Tipo de gráfico: <button onclick="session('line')">Linha</button><button onclick="session('bar')">Barra</button><button onclick="session('pie')">Pizza</button>
+                        Tipo de gráfico: <button onclick="session('line')">Linha</button><button
+                            onclick="session('bar')">Barra</button><button onclick="session('pie')">Pizza</button>
                     </div>
+                    <h2>Você está em: <span id="posGame"></span></h2>
+                    <h2 style="color: white;">Ranking de jogadores em tabela:</h2>
+                    <!-- div para exibir o ranking em formato de tabela -->
+                    <div class="tblRank"></div>
                 </div>
             </div>
         </div>
@@ -108,6 +114,9 @@
 
         let idUser = sessionStorage.ID_USUARIO;
         let typeGraf = sessionStorage.typeGraf == undefined ? 'bar' : sessionStorage.typeGraf;
+        // Criação de exibição de posição para o usuário e tabela de ranking 12/07/2024
+        let position = document.getElementById('posGame');
+        let tabela = document.querySelector('.tblRank');
 
         function obterDadosGrafico() {
             fetch(`/game/obterRankingGame`, {
@@ -141,6 +150,33 @@
             // Rótulo que sera inserido no gráfico, no caso indíce da tentativa + 1;
             const labels = dadosRecebidos.map((registro, index) => `${registro.nome}`);
             const dataPoints = dadosRecebidos.map(registro => registro.pontuacao);
+
+            // A constante index recebe o valor que corresponde a posição do jogador no ranking 12/07/2024
+            const index = dadosRecebidos.findIndex(element => element.nome === sessionStorage.NOME_USUARIO);
+            if (index != -1) {
+                position.innerHTML += ` ${index + 1}º lugar`;
+            } else {
+                position.innerHTML += ' indefinido';
+            }
+
+            let row = '';
+            dadosRecebidos.forEach(element => {
+                row += `
+                <tr>
+                    <td>${element.nome}</td><td>${element.pontuacao} pontos</td>
+                </tr>`;
+            })
+
+            console.log(`Linhas de tabela: \n${row}\n\n`);
+
+            tabela.innerHTML = `
+                <table>
+                    <tr>
+                        <th>Nome:</th><th>Pontuação:</th>
+                    </tr>
+                    ${row}
+                </table>
+                `;
 
             console.log('----------------------------------------------');
             console.log('Dados recebidos:');
