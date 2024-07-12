@@ -377,7 +377,7 @@ body {
 /* Ajuste de estilo e medidas para posicionamento de gráfico 24/06/2024 */
 
 canvas {
-  width: 90% !important;
+  width: 80% !important;
   height: auto !important;
   margin-top: 30px;
   background-color: #CBDCD3; 
@@ -618,4 +618,23 @@ canvas {
 .lojasSkate a{
   text-decoration: none;
   color: #e63e3e;
+}
+
+/* Estilização de tabela de ranking */
+
+.tblRank{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+table{
+  background-color: white;
+  border-collapse: collapse;
+  width: 50%;
+  margin-bottom: 20px;
+}
+
+th, td{
+  border: 2px solid black;
+  text-align: center;
 }
