@@ -519,6 +519,7 @@ canvas {
   width: 100%;
   flex-direction: column;
   text-align: center;
+  margin-top: 70px;
 }
 
 .quizContainer h1, h2{
