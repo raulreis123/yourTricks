@@ -10,7 +10,7 @@ body {
 
 .label-captura {
   display: flex;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
   color: white;
   font-size: 25px;
@@ -637,4 +637,12 @@ table{
 th, td{
   border: 2px solid black;
   text-align: center;
+}
+
+/* Estilização para parâmetro de menor e maior pontuação 13/07/2024 */
+.minMax{
+  width: 100%;
+  display: flex;
+  /* justify-content: space-around; */
+  column-gap: 70px;
 }
