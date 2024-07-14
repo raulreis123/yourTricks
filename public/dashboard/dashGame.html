@@ -93,10 +93,11 @@
                 <div id="grafico1" class="display-block">
                     <h3 style="color: white;">Consulte as informações abaixo do gráfico!</h3>
                     <canvas id="myChartCanvas1"></canvas>
-                    <h3 style="color: white;">Este gráfico exibe as últimas 10 tentativas que Você realizou no quiz!</h3>
+                    <h3 style="color: white;">Este gráfico exibe as últimas 10 tentativas que Você realizou no game!</h3>
                     <div class="label-captura">
                         Tipo de gráfico: <button onclick="session('line')">Linha</button><button onclick="session('bar')">Barra</button><button onclick="session('pie')">Pizza</button>
                     </div>
+                    <div class="minMax"><h2 id="maxPont">Maior pontuação: </h2><h2 id="minPont">Menor pontuação: </h2></div>
                 </div>
             </div>
         </div>
@@ -107,13 +108,10 @@
 
         var idUser = sessionStorage.ID_USUARIO;
         let typeGraf = sessionStorage.typeGraf == undefined ? 'line' : sessionStorage.typeGraf;
-        var proximaAtualizacao;
+        let maiorPont = 0;
+        let menorPont = undefined;
 
         function obterDadosGrafico() {
-            if (proximaAtualizacao != undefined) {
-                clearTimeout(proximaAtualizacao);
-            }
-
             fetch(`/game/buscar/${idUser}`, {
                 method: "GET",
                 headers: {
@@ -150,6 +148,15 @@
             // Rótulo que sera inserido no gráfico, no caso indíce da tentativa + 1;
             const labels = dadosRecebidos.map((registro, index) => `Tentativa:${index + 1}`);
             const dataPoints = dadosRecebidos.map(registro => registro.pontuacao);
+
+            menorPont = dadosRecebidos[0].pontuacao;
+            dadosRecebidos.forEach(element => {
+                maiorPont = element.pontuacao > maiorPont ? element.pontuacao : maiorPont;
+                menorPont = element.pontuacao < menorPont ? element.pontuacao : menorPont;
+            });
+
+            maxPont.innerHTML += maiorPont;
+            minPont.innerHTML += menorPont;
 
             console.log('----------------------------------------------');
             console.log('Dados recebidos:');
