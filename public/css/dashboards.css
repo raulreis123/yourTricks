@@ -137,14 +137,14 @@ body {
 }
 
 #grafico1{
-  margin-left: 370px;
+  margin-left: 300px;
   width: 100%;
   height: 100%;
 }
 
 .menuGrafico{
   position: fixed;
-  width: 370px;
+  width: 300px;
   display: flex;
   flex-direction: column;
   column-gap: 50px;
@@ -646,4 +646,25 @@ th, td{
   display: flex;
   /* justify-content: space-around; */
   column-gap: 70px;
+}
+
+
+/* Estilização para container principal 19/07/2024 */
+.containerMain{
+  position: relative;
+  width: 100%;
+  height: 90%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.subCont{
+  height: 70%;
+  width: 50%;
+  background-color: #212124;
+  border: 2px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
 }
