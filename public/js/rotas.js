@@ -14,6 +14,10 @@ function rotaGraf(rota) {
         case 'rankGame':
             window.location.href = '../dashboard/dashEstGame.html';
             break;
+        // add rota para histórico do site
+        case 'hist':
+            window.location.href = '../dashboard/historico.html';
+            break;
         default:
             alert('Gráfico não encontrado!')
             break;
