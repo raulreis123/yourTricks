@@ -56,6 +56,7 @@ drop table quiz;
 delete from usuario where id = 4;
 
 describe quiz;
+describe game;
 select * from usuario;
 select * from quiz;
 select * from usuario join quiz
@@ -68,3 +69,9 @@ SELECT quiz.pontuation, usuario.nome FROM quiz JOIN usuario
 -- SELECT para selecionar os jogadores com maior pontuação criado 11/07/2024
 SELECT usuario.nome, MAX(quiz.pontuation) FROM usuario
 	JOIN quiz ON id = fkUser GROUP BY nome;
+    
+-- SELECT para coletar os dados gerais do quiz e game
+
+SELECT 
+	(SELECT pontuation FROM quiz WHERE fkUser = 3) AS pontQuiz,
+    (SELECT pontuacao FROM game WHERE fkUser = 3) AS pontGame;

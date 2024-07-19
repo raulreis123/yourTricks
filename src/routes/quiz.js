@@ -17,5 +17,9 @@ router.get("/obterRankingQuiz", function (req, res) {
     quizController.ranking(req, res);
 });
 
+router.get("/generalData/:idUsuario", function (req, res) {
+    quizController.generalData(req, res);
+});
+
 
 module.exports = router;

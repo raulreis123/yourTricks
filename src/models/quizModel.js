@@ -36,8 +36,23 @@ function ranking() {
     return database.executar(instrucaoSql);
 }
 
+// Add model para consulta de dados gerais 19/07/2024
+function generalData(id) {
+    let instrucaoSql = `
+    SELECT pontuation AS pontuacao, 'quiz' AS origem
+    FROM quiz
+    WHERE fkUser = ${id}
+    UNION ALL
+    SELECT pontuacao AS pontuacao, 'game' AS origem
+    FROM game
+    WHERE fkUser = ${id};
+    `;
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     obterDados,
     cadastrar,
-    ranking
+    ranking,
+    generalData
 };

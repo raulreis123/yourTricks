@@ -82,8 +82,31 @@ function ranking(req, res) {
         });
 }
 
+function generalData(req, res){
+    let id = req.params.idUsuario;
+
+    if(id != undefined){
+        quizModel.generalData(id).then(resposta =>{
+            res.status(200).json({
+                ok: true,
+                data: resposta
+            })
+        })
+        .catch(erro =>{
+            console.error(erro);
+            res.status(500).json(erro.sqlMessage);
+        })
+    } else{
+        res.status(401).json({
+            ok: false,
+            message: 'Id de usuário indefinido!'
+        });
+    }
+}
+
 module.exports = {
     obterDados,
     cadastrar,
-    ranking
+    ranking,
+    generalData
 }
