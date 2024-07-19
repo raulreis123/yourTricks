@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<!-- Página de estatísticas gerais do YourTricks 18/07/2024 -->
+
+<head>
+    <!-- <link rel="shortcut icon" href="../assets/icon/favicon2.ico" type="image/x-icon"> -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YourTricks | Histórico</title>
+
+    <link rel="stylesheet" href="./../css/dashboards.css">
+    <link rel="stylesheet" href="./../css/estilo.css" />
+    <link rel="icon" href="../assets/icon/logoSite.png">
+    <script src="../js/sessao.js"></script>
+    <script src="./../js/alerta.js"></script>
+    <script src="../js/rotas.js"></script>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap"
+        rel="stylesheet">
+
+    <!-- scripts do Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!--FONT AWESOME-->
+    <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script>
+</head>
+
+<body onload="obterDadosGrafico()">
+    <div class="janela">
+        <div class="header-left">
+            <h1>YourTricks</h1>
+
+            <div class="hello">
+                <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
+            </div>
+
+            <div class="btn-nav-white">
+                <a href="./cards.html">
+                    <h4>Seus dados</h4>
+                </a>
+            </div>
+
+            <div class="btn-nav-white" onclick="exibUser()">
+                <a href="./miniGame.html">
+                    <h4>Game</h4>
+                </a>
+            </div>
+
+            <div class="btn-nav">
+                <h4>Estatísticas</h4>
+            </div>
+
+            <div class="btn-nav-white">
+                <a href="./mural.html">
+                    <h4>Suas manobras</h4>
+                </a>
+            </div>
+
+            <div class="btn-nav-white">
+                <a href="./quiz.html">
+                    <h4>Quiz</h4>
+                </a>
+            </div>
+
+            <div class="btn-nav-white">
+                <a href="./edicao-aviso.html">
+                    <h4>Sobre skate</h4>
+                </a>
+            </div>
+
+            <div class="btn-logout" onclick="limparSessao()">
+                <h4>Sair</h4>
+            </div>
+        </div>
+
+        <div class="dash">
+            <!-- <div id="titleDash">
+                <h1>Este gráfico exibe suas últimas 10 tentativas no quiz</h1>
+            </div> -->
+            
+            <div id="graficos">
+                <!-- Menu lateral para navegação entre os gráficos 24/06/2024 -->
+                <div class="menuGrafico">
+                    <h2>Selecione um gráfico</h2>
+                    <!-- Criação de função externa para mudar rotas -->
+                    <button style="margin-top: 30px;" onclick="rotaGraf('quiz')">Quiz</button>
+                    <button onclick="rotaGraf('game')">YourTricks Game</button>
+                    <button onclick="rotaGraf('rankQuiz')">Ranking Quiz</button>
+                    <button onclick="rotaGraf('rankGame')">Ranking Game</button>
+                    <button onclick="rotaGraf('hist')">Histórico</button>
+                </div>
+                <div id="grafico1" class="display-block">
+                    <h1 style="color: white;">Confira suas estatísticas gerais no site YourTricks!</h1>
+                    <div class="containerMain">
+                        <div class="subCont">
+                            <h2>YourTricks Quiz</h2>
+                            <h3>Quantidade de vezes jogadas: <span id="qtdQuiz"></span></h3>
+                        </div>
+                        <div class="subCont">
+                            <h2>YourTricks Game</h2>
+                            <h3>Quantidade de vezes jogadas: <span id="qtdGame"></span></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('b_usuario').innerHTML = sessionStorage.NOME_USUARIO;
+
+        let idUser = sessionStorage.ID_USUARIO;
+        let pontQuiz = [];
+        let pontGame = [];
+
+        function obterDadosGrafico() {
+            fetch(`/quiz/generalData/${idUser}`, {
+                method: "get",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }).then(function (response) {
+                console.log(response)
+                if (response.status == 200) {
+                    response.json().then(function (resposta) {
+                        console.log(`Dados recebidos: ${JSON.stringify(resposta.data)}`);
+                        sepData(resposta.data)
+                    });
+                } else if (response.status == 204) {
+                    alert("Você ainda não realizou uma tentativa no quiz!")
+                    setTimeout(() => { window.location.href = './quiz.html' }, 2000);
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+                .catch(function (error) {
+                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                });
+        }
+
+        // Separando os dados correspondentes 19/07/2024
+        function sepData(data) {
+            data.forEach(element => {
+                if(element.origem == 'quiz' && element.pontuacao != 0) pontQuiz.push(element.pontQuiz);
+                
+                if(element.origem == 'game' && element.pontuacao != 0) pontGame.push(element.pontGame);
+            });
+            
+            qtdQuiz.innerHTML = pontQuiz.length;
+            qtdGame.innerHTML = pontGame.length;
+        }
+    </script>
+</body>
+
+</html>
