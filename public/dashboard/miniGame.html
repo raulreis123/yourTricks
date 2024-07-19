@@ -145,7 +145,11 @@
                 over.style.display = 'block';
                 mario.src = './auxGame/images/personagemSFundo.png';
                 mario.classList.add('over');
-                sendPont(cont);
+                if(cont == 0){
+                    alert('Pontuação inválida, tente novamente.')
+                } else{
+                    sendPont(cont);
+                }
 
 
                 // console.log('Fim cont = ' + cont);
