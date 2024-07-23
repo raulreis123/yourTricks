@@ -99,10 +99,17 @@
                         <div class="subCont">
                             <h2>YourTricks Quiz</h2>
                             <h3>Quantidade de vezes jogadas: <span id="qtdQuiz"></span></h3>
+                            <!-- Incrementação de dados gerais sobre o usuário 23/07/2024 -->
+                            <h3>Maior pontuação: <span id="maPontQ"></span></h3>
+                            <h3>Menor pontuação: <span id="mePontQ"></span></h3>
+                            <h3>Média de pontuação: <span id="mediaPontQ"></span></h3>
                         </div>
                         <div class="subCont">
                             <h2>YourTricks Game</h2>
                             <h3>Quantidade de vezes jogadas: <span id="qtdGame"></span></h3>
+                            <!-- Incrementação de dados gerais sobre o usuário 23/07/2024 -->
+                            <h3>Maior pontuação: <span id="maPontG"></span></h3>
+                            <h3>Menor pontuação: <span id="mePontG"></span></h3>
                         </div>
                     </div>
                 </div>
@@ -114,8 +121,19 @@
         document.getElementById('b_usuario').innerHTML = sessionStorage.NOME_USUARIO;
 
         let idUser = sessionStorage.ID_USUARIO;
-        let pontQuiz = [];
-        let pontGame = [];
+        // Transformando vetores em objetos para adicionar mais atributos 23/07/2024
+        let pontQuiz = {
+            pont: [],
+            maior: 0,
+            menor: undefined,
+            media: 0
+        };
+        let pontGame = {
+            pont: [],
+            maior: 0,
+            menor: undefined,
+            media: 0
+        };
 
         function obterDadosGrafico() {
             fetch(`/quiz/generalData/${idUser}`, {
@@ -145,13 +163,42 @@
         // Separando os dados correspondentes 19/07/2024
         function sepData(data) {
             data.forEach(element => {
-                if(element.origem == 'quiz' && element.pontuacao != 0) pontQuiz.push(element.pontQuiz);
+                console.log(`Elemento atual recebido pelo servidor: ${element.pontuacao}`);
+                // Adicionando contador para média de quiz e game 23/07/2024
+                if(element.origem == 'quiz' && element.pontuacao != 0) {pontQuiz.pont.push(element.pontuacao); pontQuiz.media += element.pontuacao;}
                 
-                if(element.origem == 'game' && element.pontuacao != 0) pontGame.push(element.pontGame);
+                if(element.origem == 'game' && element.pontuacao != 0) {pontGame.pont.push(element.pontuacao); pontGame.media += element.pontuacao;}
             });
+
+            // Percorrendo o vetor e atribuindo a menor e maior pontuação de quiz e game 23/07/2024
+            // console.log(`Vetor de pontuação: ${pontGame.pont}`);
+            pontGame.menor = pontGame.pont[0];
+            pontGame.pont.forEach(element => {
+                pontGame.maior = element > pontGame.maior ? element : pontGame.maior;
+                pontGame.menor = element < pontGame.menor ? element : pontGame.menor;
+                // console.log(`Pontuação atual: ${element}`);
+            });
+
+            pontQuiz.menor = pontQuiz.pont[0];
+            pontQuiz.pont.forEach(element => {
+                pontQuiz.maior = element > pontQuiz.maior ? element : pontQuiz.maior;
+                pontQuiz.menor = element < pontQuiz.menor ? element : pontQuiz.menor;
+                // console.log(`Pontuação atual: ${element}`);
+            });
+
+
+            // Tirando a média de pontuação de quiz e game 23/04/2024
+            pontQuiz.media = Math.round(pontQuiz.media / pontQuiz.pont.length);
             
-            qtdQuiz.innerHTML = pontQuiz.length;
-            qtdGame.innerHTML = pontGame.length;
+            // Atribuição dos dados correspondentes 23/07/2024
+            qtdQuiz.innerHTML = pontQuiz.pont.length;
+            maPontQ.innerHTML = pontQuiz.maior;
+            mePontQ.innerHTML = pontQuiz.menor;
+            mediaPontQ.innerHTML = pontQuiz.media;
+
+            qtdGame.innerHTML = pontGame.pont.length;
+            maPontG.innerHTML = pontGame.maior;
+            mePontG.innerHTML = pontGame.menor;
         }
     </script>
 </body>
