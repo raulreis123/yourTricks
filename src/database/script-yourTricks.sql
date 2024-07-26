@@ -70,8 +70,11 @@ SELECT quiz.pontuation, usuario.nome FROM quiz JOIN usuario
 SELECT usuario.nome, MAX(quiz.pontuation) FROM usuario
 	JOIN quiz ON id = fkUser GROUP BY nome;
     
--- SELECT para coletar os dados gerais do quiz e game
-
-SELECT 
-	(SELECT pontuation FROM quiz WHERE fkUser = 3) AS pontQuiz,
-    (SELECT pontuacao FROM game WHERE fkUser = 3) AS pontGame;
+-- SELECT para coletar os dados gerais do quiz e game 26/07/2024
+SELECT pontuation AS pontuacao, 'quiz' AS origem
+    FROM quiz
+    WHERE fkUser = undefined
+    UNION ALL
+    SELECT pontuacao AS pontuacao, 'game' AS origem
+    FROM game
+    WHERE fkUser = undefined;
