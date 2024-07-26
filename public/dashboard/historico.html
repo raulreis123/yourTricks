@@ -102,7 +102,8 @@
                             <!-- Incrementação de dados gerais sobre o usuário 23/07/2024 -->
                             <h3>Maior pontuação: <span id="maPontQ"></span></h3>
                             <h3>Menor pontuação: <span id="mePontQ"></span></h3>
-                            <h3>Média de pontuação: <span id="mediaPontQ"></span></h3>
+                            <!-- Métrica em porcentagem sobre a média de acertos 24/07/2024 -->
+                            <h3>Porcentagem de acertos: <span id="mediaPontQ"></span>%</h3>
                         </div>
                         <div class="subCont">
                             <h2>YourTricks Game</h2>
@@ -110,6 +111,8 @@
                             <!-- Incrementação de dados gerais sobre o usuário 23/07/2024 -->
                             <h3>Maior pontuação: <span id="maPontG"></span></h3>
                             <h3>Menor pontuação: <span id="mePontG"></span></h3>
+                            <!-- Adicionando média ao game 24/07/2024 -->
+                            <h3>Média de pontuação: <span id="mediaPontG"></span></h3>
                         </div>
                     </div>
                 </div>
@@ -188,7 +191,11 @@
 
 
             // Tirando a média de pontuação de quiz e game 23/04/2024
-            pontQuiz.media = Math.round(pontQuiz.media / pontQuiz.pont.length);
+            // Transformando média em porcentagem 24/07/2024
+            pontQuiz.media = (Math.round(pontQuiz.media / pontQuiz.pont.length)) * 100 / 10;
+            // pontQuiz.media = pontQuiz.media * 100 / 10
+
+            pontGame.media = Math.round(pontGame.media / pontGame.pont.length);
             
             // Atribuição dos dados correspondentes 23/07/2024
             qtdQuiz.innerHTML = pontQuiz.pont.length;
@@ -199,6 +206,7 @@
             qtdGame.innerHTML = pontGame.pont.length;
             maPontG.innerHTML = pontGame.maior;
             mePontG.innerHTML = pontGame.menor;
+            mediaPontG.innerHTML = pontGame.media;
         }
     </script>
 </body>
