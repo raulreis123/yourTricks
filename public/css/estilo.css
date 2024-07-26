@@ -18,7 +18,8 @@ body {
 .container {
   display: flex;
   width: 80%;
-  margin: auto;
+  /* ajuste de posicionamento de mural de manobras 26/07/2024 */
+  /*margin: auto;*/
 }
 
 .header {
