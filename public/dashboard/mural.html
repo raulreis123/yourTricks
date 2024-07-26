@@ -104,6 +104,8 @@
                     <h2></h2>
                     <h1>Mural de Manobras</h1>
                     <h2 id="ttMan">Você aprendeu um total de: </h2>
+                    <!-- Adicionando filtros para busca de postagens 26/07/2024 -->
+                    <div class="btnFilt"><button type="button" onclick="filtro(1)">Suas manobras</button><button type="button" onclick="filtro(2)">Geral</button></div>
                     <div class="div-results">
                         <div id="feed_container" class="feed-container">
                         </div>
@@ -225,7 +227,7 @@
 
                         spanID.innerHTML = "ID: <b>" + publicacao.idAviso + "</b>";
                         spanTitulo.innerHTML = "Título: <b>" + publicacao.titulo + "</b>";
-                        spanNome.innerHTML = "Autor: <b>" + publicacao.nome + "</b>";
+                        spanNome.innerHTML = "Autor: <b class='nAut'>" + publicacao.nome + "</b>";
                         h3My.innerHTML = "Sua manobra!";
                         divDescricao.innerHTML = "Descrição: <b>" + publicacao.anotacao + "</b>";
                         // btnEditar.innerHTML = "Editar";
@@ -253,13 +255,18 @@
                         divPublicacao.appendChild(divDescricao);
                         divPublicacao.appendChild(divButtons);
                         // divButtons.appendChild(btnEditar);
+                        divPublicacao.classList.add('userSec');
                         if(publicacao.nome == sessionStorage.NOME_USUARIO){
                             divButtons.appendChild(h3My);
                             divButtons.appendChild(btnDeletar);
+                            // Adição de condicional para filtro de busca 26/07/2024
                             totalManobra++;
+                        } else{
+                            divPublicacao.classList.add('userGe')
                         }
                         feed.appendChild(divPublicacao);
                     }
+
                     if(totalManobra == 1) ttMan.innerHTML += totalManobra + ' Manobra';
                     else ttMan.innerHTML += totalManobra + ' Manobras';
 
@@ -274,4 +281,42 @@
         });
     }
 
+    // Função para fazer filtragem de posts 26/07/2024
+    function filtro(sel){
+        if (sel == 1) {
+            console.log('Function filtro 1');
+            yourTricks();
+        } else if(sel == 2){
+            console.log('Function filtro 2');
+            allTricks();
+        }
+    }
+
+    // Filtro suas manobras 26/07/2024
+    function yourTricks(){
+        let posts = document.querySelectorAll('.userGe');
+
+        posts.forEach(element =>{
+            console.log(`Elemento atual: ${posts}`);
+            element.classList.add('display-none');
+
+            if (element.classList.contains('display-flex')) {
+                element.classList.remove('display-flex');
+            }
+        });
+    }
+
+
+    // Filtro manobras gerais 26/07/2024
+    function allTricks(){
+        let posts = document.querySelectorAll('.userSec');
+
+        posts.forEach(element=>{
+            element.classList.add('display-flex');
+
+            if (element.classList.contains('display-none')) {
+                element.classList.remove('display-none');
+            }
+        });
+    }
 </script>
