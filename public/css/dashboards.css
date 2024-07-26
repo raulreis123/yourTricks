@@ -668,3 +668,22 @@ th, td{
   align-items: center;
   color: white;
 }
+
+/* Estilização para filtro de busca 26/07/2024 */
+.btnFilt{
+  position: relative;
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  margin-bottom: 30px;
+}
+
+.btnFilt button{
+  width: 100px;
+  height: 50px;
+  background-color: #e63e3e;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+}
