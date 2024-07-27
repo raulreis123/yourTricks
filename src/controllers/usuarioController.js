@@ -88,7 +88,23 @@ async function cadastrar(req, res) {
     }
 }
 
+function allUser(req, res){
+    usuarioModel.allUser()
+    .then(resultado =>{
+        console.log(`Resposta sql controller allUser: ${resultado[0].qtdUser}`);
+        if (resultado.length == 0) {
+            res.status(204).send('Nenhum resultado encontrado!');
+        } else{
+            res.status(200).json({
+                ok: true,
+                data: resultado[0].qtdUser
+            });
+        }
+    })
+}
+
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
+    allUser
 }

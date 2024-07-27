@@ -22,7 +22,17 @@ function cadastrar(nome, email, senha) {
     return database.executar(instrucaoSql);
 }
 
+function allUser(){
+    let instrucaoSql = `
+        SELECT count(nome) AS 'qtdUser' from usuario;
+    `;
+    console.log('Model usuário acessada, executando função allUser.\n\n')
+
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
+    allUser
 };

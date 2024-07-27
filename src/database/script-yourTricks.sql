@@ -78,3 +78,5 @@ SELECT pontuation AS pontuacao, 'quiz' AS origem
     SELECT pontuacao AS pontuacao, 'game' AS origem
     FROM game
     WHERE fkUser = undefined;
+    
+SELECT count(nome) as 'qtdUser' from usuario;
