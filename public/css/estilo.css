@@ -372,3 +372,18 @@ input {
   75%  {transform: rotate(-25deg)}
   100% {transform: rotate(25deg)}
 }
+
+#totalUser{
+  position: absolute;
+  color: white;
+  font-size: 25px;
+  font-weight: bold;
+  text-align: center;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #212124;
+  margin-top: 5px;
+  width: 250px;
+  height: 35px;
+  border-radius: 10px;
+}
