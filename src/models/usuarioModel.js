@@ -22,6 +22,7 @@ function cadastrar(nome, email, senha) {
     return database.executar(instrucaoSql);
 }
 
+// função para quantidade de usuários cadastrados 26/07/2024
 function allUser(){
     let instrucaoSql = `
         SELECT count(nome) AS 'qtdUser' from usuario;

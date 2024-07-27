@@ -12,6 +12,7 @@ router.post("/autenticar", function (req, res) {
     usuarioController.autenticar(req, res);
 });
 
+// rota para quantidade de usuários cadastrados 26/07/2024
 router.get('/allUser', (req, res)=>{
     usuarioController.allUser(req, res);
 })

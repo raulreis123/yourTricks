@@ -88,6 +88,7 @@ async function cadastrar(req, res) {
     }
 }
 
+// função para quantidade de usuários cadastrados 26/07/2024
 function allUser(req, res){
     usuarioModel.allUser()
     .then(resultado =>{
