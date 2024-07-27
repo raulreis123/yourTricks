@@ -15,7 +15,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
 </head>
 
-<body>
+<body onload="qtdUser()">
 
     <!--Header-->
 
@@ -36,6 +36,7 @@
         </div>
     </div>
 
+    <div id="totalUser">Total de Usuarios: </div>
 
     <div class="login">
         <div class="alerta_erro">
@@ -152,6 +153,10 @@
 
     function sumirMensagem() {
         cardErro.style.display = "none"
+    }
+
+    function qtdUser(){
+        totalUser.innerHTML += `${sessionStorage.totalUser}`;
     }
 
 </script>
