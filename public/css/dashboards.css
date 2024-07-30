@@ -21,6 +21,10 @@ body {
   font-size: 20px;
   width: 150px;
   background-color: #5c6bc0;
+  /* Estilização de botão no switch de gráfico 30/07/2024 */
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
 .dash-right .avisos {
@@ -159,6 +163,15 @@ body {
   height: 40px;
   margin-bottom: 60px;
   font-size: 20px;
+  cursor: pointer;
+}
+
+/* Atualização de desing para botão selecionado 30/07/2024 */
+
+.btnSel{
+  background-color: #ff7043;
+  color: white;
+  border: none;
 }
 
 .menuGrafico h2{

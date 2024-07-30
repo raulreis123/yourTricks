@@ -87,7 +87,8 @@
                     <!-- Criação de função externa para mudar rotas -->
                     <button style="margin-top: 30px;" onclick="rotaGraf('quiz')">Quiz</button>
                     <button onclick="rotaGraf('game')">YourTricks Game</button>
-                    <button onclick="rotaGraf('rankQuiz')">Ranking Quiz</button>
+                    <!-- Classe de botão selecionado adicionada 30/07/2024 -->
+                    <button onclick="rotaGraf('rankQuiz')" class="btnSel">Ranking Quiz</button>
                     <button onclick="rotaGraf('rankGame')">Ranking Game</button>
                     <button onclick="rotaGraf('hist')">Histórico</button>
                 </div>
@@ -151,8 +152,8 @@
             const labels = dadosRecebidos.map((registro, index) => `${registro.nome}`);
             const dataPoints = dadosRecebidos.map(registro => registro.pontuation);
 
-                        // A constante index recebe o valor que corresponde a posição do jogador no ranking 12/07/2024
-                        const index = dadosRecebidos.findIndex(element => element.nome === sessionStorage.NOME_USUARIO);
+            // A constante index recebe o valor que corresponde a posição do jogador no ranking 12/07/2024
+            const index = dadosRecebidos.findIndex(element => element.nome === sessionStorage.NOME_USUARIO);
             if (index != -1) {
                 position.innerHTML += ` ${index + 1}º lugar`;
             } else {
