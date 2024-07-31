@@ -31,3 +31,11 @@ function session(type) {
         window.location.reload(true);
     }, 500);
 }
+
+// Criação de uma nova função para switch gráficos de ranking 31/07/2024
+function session1(type) {
+    sessionStorage.typeGrafRk = type;
+    setTimeout(() => {
+        window.location.reload(true);
+    }, 500);
+}
