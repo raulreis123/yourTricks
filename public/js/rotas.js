@@ -36,6 +36,20 @@ function session(type) {
 function session1(type) {
     sessionStorage.typeGrafRk = type;
     setTimeout(() => {
+        sessionStorage.setAfterReload = true;
         window.location.reload(true);
     }, 500);
+}
+
+// Adicionando listener para evento de carregamento de página 31/07/2024
+window.addEventListener('load', ()=>{
+    if(sessionStorage.setAfterReload){
+        setAfter();
+        delete sessionStorage.setAfterReload;
+    }
+});
+
+// Setando novo valor para recarregamento de página
+function setAfter() {
+    sessionStorage.typeGrafRk = 'bar';
 }
