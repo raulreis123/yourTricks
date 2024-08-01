@@ -150,10 +150,11 @@
             console.log('Iniciando plotagem do gráfico...');
 
 
-            // Criando estrutura para plotar gráfico - labels e dados
-            // Rótulo que sera inserido no gráfico, no caso indíce da tentativa + 1;
-            const labels = dadosRecebidos.map((registro, index) => `${registro.nome}`);
-            const dataPoints = dadosRecebidos.map(registro => registro.pontuation);
+            // Criando objeto para plotar gráfico - labels e dados 01/08/2024
+            const structM = {
+                labels: [],
+                dataPoints: []
+            }
 
             // A constante index recebe o valor que corresponde a posição do jogador no ranking 12/07/2024
             const index = dadosRecebidos.findIndex(element => element.nome === sessionStorage.NOME_USUARIO);
@@ -165,10 +166,15 @@
 
             let row = '';
             dadosRecebidos.forEach(element => {
-                row += `
-                <tr>
-                    <td>${element.nome}</td><td>${element.pontuation} pontos</td>
-                </tr>`;
+                if(element.tipo == "maior"){
+                    row += `
+                    <tr>
+                        <td>${element.nome}</td><td>${element.pontuation} pontos</td>
+                    </tr>`;
+
+                    structM.labels.push(`${element.nome}`);
+                    structM.dataPoints.push(element.pontuation);
+                }
             })
 
             console.log(`Linhas de tabela: \n${row}\n\n`);
@@ -184,15 +190,17 @@
 
 
             console.log('----------------------------------------------');
-            console.log('Dados recebidos:');
+            console.log('\nDados recebidos:');
             console.log(dadosRecebidos);
+
+            console.log(`Dados do gráfico:\n\n ${structM.dataPoints}`)
 
             // Estrutura para plotar gráfico
             const dados = {
-                labels: labels,
+                labels: structM.labels,
                 datasets: [{
                     label: 'Pontuação',
-                    data: dataPoints,
+                    data: structM.dataPoints,
                     fill: false,
                     backgroundColor: 'rgb(139, 166, 147)',
                     borderColor: '#e63e3e',
@@ -202,7 +210,7 @@
             };
 
             console.log('Labels:');
-            console.log(labels);
+            console.log(structM.labels);
             console.log('Dados:');
             console.log(dados.datasets);
             console.log('----------------------------------------------');
