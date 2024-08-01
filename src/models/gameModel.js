@@ -21,9 +21,29 @@ function ranking() {
 
     // Comando ORDER BY adicionado para exibir ranking do maior para o menor 12/07/2024
     var instrucaoSql = `
-    SELECT usuario.nome, MAX(game.pontuacao) AS pontuacao FROM usuario
-	    JOIN game ON id = fkUser GROUP BY nome
-            ORDER BY pontuacao DESC;
+
+    -- Subconsulta para as 10 maiores pontuações
+    (SELECT usuario.nome, MAX(game.pontuacao) AS pontuacao, 'maior' AS tipo
+     FROM usuario
+     JOIN quiz ON usuario.id = game.fkUser 
+     GROUP BY usuario.nome
+     ORDER BY pontuacao DESC
+     LIMIT 10)
+    
+    UNION ALL
+
+    -- Subconsulta para as 10 menores pontuações
+    (SELECT usuario.nome, MIN(game.pontuacao) AS pontuacao, 'menor' AS tipo
+     FROM usuario
+     JOIN game ON usuario.id = game.fkUser 
+     GROUP BY usuario.nome
+     ORDER BY pontuacao ASC
+     LIMIT 10);
+
+
+    -- SELECT usuario.nome, MAX(game.pontuacao) AS pontuacao FROM usuario
+	--     JOIN game ON id = fkUser GROUP BY nome
+    --         ORDER BY pontuacao DESC;
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
