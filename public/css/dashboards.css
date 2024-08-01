@@ -468,6 +468,7 @@ canvas {
   text-align: center;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
   /* padding: 2% 5%; */
 }
 
@@ -483,6 +484,7 @@ canvas {
   text-align: center;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
   /* padding: 2% 5%; */
 }
 
@@ -699,4 +701,13 @@ th, td{
   border-radius: 10px;
   color: white;
   font-weight: bold;
+}
+
+.btn-graf{
+  width: 100%;
+  display: flex;
+}
+
+.btn-graf button{
+  font-size: 20px;
 }
