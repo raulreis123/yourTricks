@@ -41,7 +41,8 @@ function ranking() {
     UNION ALL
 
     -- Subconsulta para as 10 menores pontuações
-    (SELECT usuario.nome, MAX(quiz.pontuation) AS pontuation, 'menor' AS tipo
+    -- Ajuste em cláusula, troca de MAX() por MIN()
+    (SELECT usuario.nome, MIN(quiz.pontuation) AS pontuation, 'menor' AS tipo
      FROM usuario
      JOIN quiz ON usuario.id = quiz.fkUser 
      GROUP BY usuario.nome
