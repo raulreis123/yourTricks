@@ -181,10 +181,18 @@
             dadosRecebidos.forEach(element => {
                 // Filtro para atribuição de valores 02/08/2024
                 if(element.tipo == "maior"){
-                    row += `
-                    <tr>
-                        <td>${element.nome}</td><td>${element.pontuacao} pontos</td>
-                    </tr>`;
+                    // Condicional para aplicar cor de fundo a posição na tabela do usuário logado 02/08/2024
+                    if (element.nome == sessionStorage.NOME_USUARIO) {
+                        row += `
+                            <tr style="background-color: #FF6347">
+                                <td>${element.nome}</td><td>${element.pontuacao} pontos</td>
+                            </tr>`;
+                    } else{
+                        row += `
+                            <tr>
+                                <td>${element.nome}</td><td>${element.pontuacao} pontos</td>
+                            </tr>`;
+                    }
 
                     structMa.labels.push(`${element.nome}`);
                     structMa.dataPoints.push(element.pontuacao);
@@ -198,7 +206,7 @@
 
             tabela.innerHTML = `
                 <table>
-                    <tr>
+                    <tr style="background-color: #4F4F4F; color: white;">
                         <th>Nome:</th><th>Pontuação:</th>
                     </tr>
                     ${row}
