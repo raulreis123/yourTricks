@@ -80,3 +80,44 @@ SELECT pontuation AS pontuacao, 'quiz' AS origem
     WHERE fkUser = undefined;
     
 SELECT count(nome) as 'qtdUser' from usuario;
+
+
+-- Subconsulta para as 10 maiores pontuações
+(SELECT usuario.nome, MAX(quiz.pontuation) AS pontuation, 'maior' AS tipo
+ FROM usuario
+ JOIN quiz ON usuario.id = quiz.fkUser 
+ GROUP BY usuario.nome
+ ORDER BY pontuation DESC
+ LIMIT 10)
+ 
+UNION ALL
+
+-- Subconsulta para as 10 menores pontuações
+(SELECT usuario.nome, MIN(quiz.pontuation) AS pontuation, 'menor' AS tipo
+ FROM usuario
+ JOIN quiz ON usuario.id = quiz.fkUser 
+ GROUP BY usuario.nome
+ ORDER BY pontuation ASC
+ LIMIT 10);
+ 
+ 
+ describe game;
+ 
+ select game.pontuacao from game;
+ 
+ (SELECT usuario.nome, MAX(game.pontuacao) AS pontuacao, 'maior' AS tipo
+     FROM usuario
+     JOIN game ON usuario.id = game.fkUser 
+     GROUP BY usuario.nome
+     ORDER BY pontuacao DESC
+     LIMIT 10)
+    
+    UNION ALL
+
+    -- Subconsulta para as 10 menores pontuações
+    (SELECT usuario.nome, MIN(game.pontuacao) AS pontuacao, 'menor' AS tipo
+     FROM usuario
+     JOIN game ON usuario.id = game.fkUser 
+     GROUP BY usuario.nome
+     ORDER BY pontuacao ASC
+     LIMIT 10);

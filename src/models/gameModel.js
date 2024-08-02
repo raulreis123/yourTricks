@@ -25,7 +25,7 @@ function ranking() {
     -- Subconsulta para as 10 maiores pontuações
     (SELECT usuario.nome, MAX(game.pontuacao) AS pontuacao, 'maior' AS tipo
      FROM usuario
-     JOIN quiz ON usuario.id = game.fkUser 
+     JOIN game ON usuario.id = game.fkUser 
      GROUP BY usuario.nome
      ORDER BY pontuacao DESC
      LIMIT 10)
