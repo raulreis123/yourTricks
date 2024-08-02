@@ -92,8 +92,14 @@
                     <button onclick="rotaGraf('rankGame')">Ranking Game</button>
                     <button onclick="rotaGraf('hist')">Histórico</button>
                 </div>
+
+                <!-- Geração de gráfico no html -->
                 <div id="grafico1" class="display-block">
                     <h3 style="color: white;">Consulte as informações abaixo do gráfico!</h3>
+                    <div class="btn-graf">
+                        <button class="btn-nav" onclick="atualizarGrafico('maior')">Maiores pontuações</button>
+                        <button class="btn-nav-white" onclick="atualizarGrafico('menor')">Menores pontuações</button>
+                    </div>
                     <canvas id="myChartCanvas1"></canvas>
                     <h3 style="color: white;">Este gráfico exibe os 10 usuários com as maiores pontuações no quiz, o nome dos usuários estão abaixo da pontuação!</h3>
                     <!-- Criação de elementos para realizar a mudança no tipo de gráfico 05/06/2024 -->
@@ -116,6 +122,8 @@
         document.getElementById('b_usuario').innerHTML = sessionStorage.NOME_USUARIO;
 
         let idUser = sessionStorage.ID_USUARIO;
+        // Variável para atualizar dados do gráfico 02/07/2024
+        let myChart;
         let typeGraf = sessionStorage.typeGrafRk == undefined ? 'bar' : sessionStorage.typeGrafRk;
         // Criação de exibição de posição para o usuário e tabela de ranking 12/07/2024
         let position = document.getElementById('posGame');
@@ -146,15 +154,12 @@
                 });
         }
 
+        // Criando objeto para plotar gráfico - labels e dados 01/08/2024
+        const structMa = { labels: [], dataPoints: [] } // Maiores pontuações
+        const structMe = { labels: [], dataPoints: [] } // Menores pontuações
+
         function plotarGrafico(dadosRecebidos) {
             console.log('Iniciando plotagem do gráfico...');
-
-
-            // Criando objeto para plotar gráfico - labels e dados 01/08/2024
-            const structM = {
-                labels: [],
-                dataPoints: []
-            }
 
             // A constante index recebe o valor que corresponde a posição do jogador no ranking 12/07/2024
             const index = dadosRecebidos.findIndex(element => element.nome === sessionStorage.NOME_USUARIO);
@@ -166,16 +171,20 @@
 
             let row = '';
             dadosRecebidos.forEach(element => {
+                // Filtro para atribuição de valores 02/08/2024
                 if(element.tipo == "maior"){
                     row += `
                     <tr>
                         <td>${element.nome}</td><td>${element.pontuation} pontos</td>
                     </tr>`;
 
-                    structM.labels.push(`${element.nome}`);
-                    structM.dataPoints.push(element.pontuation);
+                    structMa.labels.push(`${element.nome}`);
+                    structMa.dataPoints.push(element.pontuation);
+                } else{
+                    structMe.labels.push(`${element.nome}`);
+                    structMe.dataPoints.push(element.pontuation);
                 }
-            })
+            });
 
             console.log(`Linhas de tabela: \n${row}\n\n`);
 
@@ -193,14 +202,14 @@
             console.log('\nDados recebidos:');
             console.log(dadosRecebidos);
 
-            console.log(`Dados do gráfico:\n\n ${structM.dataPoints}`)
+            console.log(`Dados do gráfico:\n\n ${structMa.dataPoints}`)
 
             // Estrutura para plotar gráfico
             const dados = {
-                labels: structM.labels,
+                labels: structMa.labels,
                 datasets: [{
                     label: 'Pontuação',
-                    data: structM.dataPoints,
+                    data: structMa.dataPoints,
                     fill: false,
                     backgroundColor: 'rgb(139, 166, 147)',
                     borderColor: '#e63e3e',
@@ -210,7 +219,7 @@
             };
 
             console.log('Labels:');
-            console.log(structM.labels);
+            console.log(structMa.labels);
             console.log('Dados:');
             console.log(dados.datasets);
             console.log('----------------------------------------------');
@@ -238,10 +247,25 @@
                 }
             };
 
+            // Verificando a existência de um gráfico e o removendo 01/02/2024
+            if (myChart) {
+                myChart.destroy();
+            }
+            
             const ctx = document.getElementById('myChartCanvas1').getContext('2d');
 
             // Criando e adicionando o gráfico na tela
-            new Chart(ctx, config);
+            myChart = new Chart(ctx, config);
+        }
+
+
+        // Função para realizar atualização em gráfico 02/07/2024
+        function atualizarGrafico(tipo) {
+            const dados = tipo === 'maior' ? structMa : structMe;
+
+            myChart.data.labels = dados.labels;
+            myChart.data.datasets[0].data = dados.dataPoints;
+            myChart.update();
         }
     </script>
 </body>
