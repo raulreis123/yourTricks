@@ -116,6 +116,7 @@
                             <h3>Média de pontuação: <span id="mediaPontG"></span></h3>
                         </div>
                     </div>
+                    <h2 class="infoPubli" onload="infoPubli()">Você fez um total de |<span id="qtdPubli"></span>| publicações em nosso mural.</h2>
                 </div>
             </div>
         </div>
@@ -149,7 +150,7 @@
                 console.log(response)
                 if (response.status == 200) {
                     response.json().then(function (resposta) {
-                        console.log(`Dados recebidos: ${JSON.stringify(resposta.data)}`);
+                        // console.log(`Dados recebidos: ${JSON.stringify(resposta.data)}`);
                         sepData(resposta.data)
                     });
                 } else if (response.status == 204) {
@@ -167,7 +168,7 @@
         // Separando os dados correspondentes 19/07/2024
         function sepData(data) {
             data.forEach(element => {
-                console.log(`Elemento atual recebido pelo servidor: ${element.pontuacao}`);
+                // console.log(`Elemento atual recebido pelo servidor: ${element.pontuacao}`);
                 // Adicionando contador para média de quiz e game 23/07/2024
                 if(element.origem == 'quiz' && element.pontuacao != 0) {pontQuiz.pont.push(element.pontuacao); pontQuiz.media += element.pontuacao;}
                 
@@ -208,6 +209,26 @@
             maPontG.innerHTML = pontGame.maior;
             mePontG.innerHTML = pontGame.menor;
             mediaPontG.innerHTML = pontGame.media;
+        }
+        
+        window.addEventListener('onloadend', infoPubli());
+
+        function infoPubli() {
+            fetch('/anotacoes/listar', {
+                method: 'GET',
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }).then(response => {
+                if(response.status == 200){
+                    response.json().then(responseToString =>{
+                        // console.log('Dados recebidos: ' + JSON.stringify(responseToString));
+                        let numPubli = responseToString.length;
+                        console.log('Tamanho do objeto recebido: ' + numPubli);
+                        qtdPubli.innerHTML += `${numPubli}`;
+                    });
+                }
+            })
         }
     </script>
 </body>

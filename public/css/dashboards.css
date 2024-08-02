@@ -711,3 +711,15 @@ th, td{
 .btn-graf button{
   font-size: 20px;
 }
+
+.infoPubli{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: -150px;
+  color: white;
+}
+
+#qtdPubli{
+  color: #e63e3e;
+}
