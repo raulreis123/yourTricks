@@ -4,3 +4,7 @@ package-lock.json
 auxGame
 
 .github
+
+# ignorando arquivos env
+.env
+.env.dev
