@@ -79,7 +79,7 @@
             <!-- <div id="titleDash">
                 <h1>Este gráfico exibe suas últimas 10 tentativas no quiz</h1>
             </div> -->
-            
+
             <div id="graficos">
                 <!-- Menu lateral para navegação entre os gráficos 24/06/2024 -->
                 <div class="menuGrafico">
@@ -97,18 +97,22 @@
                 <div id="grafico1" class="display-block">
                     <h3 style="color: white;">Consulte as informações abaixo do gráfico!</h3>
                     <div class="btn-graf">
-                        <button class="btn-nav" onclick="atualizarGrafico('maior')">Maiores pontuações</button>
-                        <button class="btn-nav-white" onclick="atualizarGrafico('menor')">Menores pontuações</button>
+                        <button id="btnTrGraf" class="btn-nav" onclick="atualizarGrafico('maior')">Maiores
+                            pontuações</button>
+                        <button id="btnTrGraf1" class="btn-nav-white" onclick="atualizarGrafico('menor')">Menores
+                            pontuações</button>
                     </div>
                     <canvas id="myChartCanvas1"></canvas>
-                    <h3 style="color: white;">Este gráfico exibe os 10 usuários com as maiores pontuações no quiz, o nome dos usuários estão abaixo da pontuação!</h3>
+                    <h3 style="color: white;">Este gráfico exibe os 10 usuários com as maiores ou menores pontuações no quiz, o
+                        nome dos usuários estão abaixo da pontuação!</h3>
                     <!-- Criação de elementos para realizar a mudança no tipo de gráfico 05/06/2024 -->
                     <div class="label-captura">
                         Tipo de gráfico: <button onclick="session1('line')">Linha</button>
                         <button onclick="session1('bar')">Barra</button><button onclick="session1('pie')">Pizza</button>
                     </div>
                     <!-- Adição de informativo no gráfico 31/07/2024 -->
-                    <h3 style="color: white; margin-bottom: 40px;">O gráfico de barra é recomendado para melhor visualização de ranking!</h3>
+                    <h3 style="color: white; margin-bottom: 40px;">O gráfico de barra é recomendado para melhor
+                        visualização de ranking!</h3>
                     <h2>Você está em: <span id="posGame"></span></h2>
                     <h2 style="color: white;">Ranking de jogadores em tabela:</h2>
                     <!-- div para exibir o ranking em formato de tabela 12/06/2024 -->
@@ -172,7 +176,7 @@
             let row = '';
             dadosRecebidos.forEach(element => {
                 // Filtro para atribuição de valores 02/08/2024
-                if(element.tipo == "maior"){
+                if (element.tipo == "maior") {
                     row += `
                     <tr>
                         <td>${element.nome}</td><td>${element.pontuation} pontos</td>
@@ -180,7 +184,7 @@
 
                     structMa.labels.push(`${element.nome}`);
                     structMa.dataPoints.push(element.pontuation);
-                } else{
+                } else {
                     structMe.labels.push(`${element.nome}`);
                     structMe.dataPoints.push(element.pontuation);
                 }
@@ -251,7 +255,7 @@
             if (myChart) {
                 myChart.destroy();
             }
-            
+
             const ctx = document.getElementById('myChartCanvas1').getContext('2d');
 
             // Criando e adicionando o gráfico na tela
@@ -262,6 +266,32 @@
         // Função para realizar atualização em gráfico 02/07/2024
         function atualizarGrafico(tipo) {
             const dados = tipo === 'maior' ? structMa : structMe;
+            const btnGraf = document.getElementById('btnTrGraf');
+            const btnGraf1 = document.getElementById('btnTrGraf1');
+            console.log('\n\ Classes html btnGraf:\n' + btnGraf.classList.toString());
+            console.log('\n\ Classes html btnGraf1:\n' + btnGraf1.classList.toString());
+
+
+            // if para troca de estilo botão gráfico 02/07/2024
+            if (tipo == 'maior') {
+                if (btnGraf1.classList.contains('btn-nav')) {
+                    btnGraf1.classList.remove('btn-nav');
+                    btnGraf1.classList.add('btn-nav-white');
+                }
+                if (!btnGraf.classList.contains('btn-nav')) {
+                    btnGraf.classList.remove('btn-nav-white');
+                    btnGraf.classList.add('btn-nav');
+                }
+            } else {
+                if (btnGraf.classList.contains('btn-nav')) {
+                    btnGraf.classList.remove('btn-nav');
+                    btnGraf.classList.add('btn-nav-white');
+                }
+                if (!btnGraf1.classList.contains('btn-nav')) {
+                    btnGraf1.classList.remove('btn-nav-white');
+                    btnGraf1.classList.add('btn-nav');
+                }
+            }
 
             myChart.data.labels = dados.labels;
             myChart.data.datasets[0].data = dados.dataPoints;

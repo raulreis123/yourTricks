@@ -97,11 +97,11 @@
                 <div id="grafico1" class="display-block">
                     <h3 style="color: white;">Consulte as informações abaixo do gráfico!</h3>
                     <div class="btn-graf">
-                        <button class="btn-nav" onclick="atualizarGrafico('maior')">Maiores pontuações</button>
-                        <button class="btn-nav-white" onclick="atualizarGrafico('menor')">Menores pontuações</button>
+                        <button id="btnTrGraf" class="btn-nav" onclick="atualizarGrafico('maior')">Maiores pontuações</button>
+                        <button id="btnTrGraf1" class="btn-nav-white" onclick="atualizarGrafico('menor')">Menores pontuações</button>
                     </div>
                     <canvas id="myChartCanvas1"></canvas>
-                    <h3 style="color: white;">Este gráfico exibe os 10 usuários com as maiores pontuações no YourTricks
+                    <h3 style="color: white;">Este gráfico exibe os 10 usuários com as maiores ou menores pontuações no YourTricks
                         Game, o nome dos usuários estão abaixo da pontuação!</h3>
                     <!-- Criação de elementos para realizar a mudança no tipo de gráfico -->
                     <div class="label-captura">
@@ -264,6 +264,33 @@
         // Função para realizar atualização em gráfico 02/07/2024
         function atualizarGrafico(tipo) {
             const dados = tipo === 'maior' ? structMa : structMe;
+            const btnGraf = document.getElementById('btnTrGraf');
+            const btnGraf1 = document.getElementById('btnTrGraf1');
+            console.log('\n\ Classes html btnGraf:\n' + btnGraf.classList.toString());
+            console.log('\n\ Classes html btnGraf1:\n' + btnGraf1.classList.toString());
+
+
+            // if para troca de estilo botão gráfico 02/07/2024
+            if (tipo == 'maior') {
+                if (btnGraf1.classList.contains('btn-nav')) {
+                    btnGraf1.classList.remove('btn-nav');
+                    btnGraf1.classList.add('btn-nav-white');
+                }
+                if (!btnGraf.classList.contains('btn-nav')) {
+                    btnGraf.classList.remove('btn-nav-white');
+                    btnGraf.classList.add('btn-nav');
+                }
+            } else {
+                if (btnGraf.classList.contains('btn-nav')) {
+                    btnGraf.classList.remove('btn-nav');
+                    btnGraf.classList.add('btn-nav-white');
+                }
+                if (!btnGraf1.classList.contains('btn-nav')) {
+                    btnGraf1.classList.remove('btn-nav-white');
+                    btnGraf1.classList.add('btn-nav');
+                }
+            }
+
 
             myChart.data.labels = dados.labels;
             myChart.data.datasets[0].data = dados.dataPoints;
