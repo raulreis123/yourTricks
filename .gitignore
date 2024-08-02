@@ -6,5 +6,5 @@ auxGame
 .github
 
 # ignorando arquivos env
-# .env
-# .env.dev
+.env
+.env.dev
