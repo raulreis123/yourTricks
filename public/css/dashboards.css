@@ -8,6 +8,13 @@ body {
   font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+.aling{
+  width: 100% !important;
+  display: flex;
+  flex-direction: column;
+  left: 0 !important;
+}
+
 .label-captura {
   display: flex;
   justify-content: left;
